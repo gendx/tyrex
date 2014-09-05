@@ -1,6 +1,6 @@
 # Tyrex - the versatile file decoder
 
-An hexadecimal file reader with extensions to decode lots of file formats.
+An hexadecimal file reader with extensions to decode lots of file formats. [![Build Status](https://travis-ci.org/gendx/tyrex.png?branch=master)](https://travis-ci.org/gendx/tyrex)
 
 ## Installation
 
