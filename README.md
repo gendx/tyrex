@@ -55,3 +55,13 @@ Note that you can reuse models and views for several parsers. For example, image
 
 Then, you will need to bind them together into the program. Add entries in class `tyrex::parse::Document` and `tyrex::graphic::TypeSelector` (in `src/graphic/dialog/`). You can also specify the *magic* of your format in `tyrex::parse::Document` to quickly determine the type of unknown files.
 
+## License
+
+*Copyright (C) 2014  G. Endignoux*
+
+This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with this program. If not, see [www.gnu.org/licenses/gpl-3.0.txt](http://www.gnu.org/licenses/gpl-3.0.txt).
+
