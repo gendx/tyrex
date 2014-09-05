@@ -1,0 +1,39 @@
+<!--
+    Tyrex - the versatile file decoder.
+    Copyright (C) 2014  G. Endignoux
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see http://www.gnu.org/licenses/gpl-3.0.txt
+-->
+<RCC>
+    <qresource prefix="/icons">
+        <file alias="open.png">../icons/icons/folder_page_white.png</file>
+        <file alias="close.png">../icons/icons/page_white_cross.png</file>
+        <file alias="close_all.png">../icons/icons/cross.png</file>
+        <file alias="down.png">../icons/icons/bullet_down.png</file>
+        <file alias="export.png">../icons/icons/page_white_go.png</file>
+        <file alias="find.png">../icons/icons/find.png</file>
+        <file alias="left.png">../icons/icons/resultset_previous.png</file>
+        <file alias="right.png">../icons/icons/resultset_next.png</file>
+        <file alias="save.png">../icons/icons/disk.png</file>
+        <file alias="save_all.png">../icons/icons/disk_multiple.png</file>
+        <file alias="save_as.png">../icons/icons/disk_edit.png</file>
+        <file alias="copy.png">../icons/icons/page_white_copy.png</file>
+        <file alias="split.png">../icons/icons/application_split.png</file>
+        <file alias="unsplit.png">../icons/icons/application_split_cross.png</file>
+        <file alias="warning.png">../icons/icons/error.png</file>
+        <file alias="error.png">../icons/icons/exclamation.png</file>
+        <file alias="help.png">../icons/icons/help.png</file>
+        <file alias="clear.png">../icons/icons/application_bin.png</file>
+    </qresource>
+</RCC>
