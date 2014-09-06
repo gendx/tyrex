@@ -212,7 +212,7 @@ int MemChunk::getInt32BE(unsigned int start) const
 
 int64_t MemChunk::getInt64BE(unsigned int start) const
 {
-    uint64_t tmp = getInt64BE(start);
+    uint64_t tmp = getUint64BE(start);
 
     if (tmp & 0x8000000000000000ull)
     {
