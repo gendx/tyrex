@@ -12,22 +12,24 @@ Work is still in progress and new decoders are coming soon !
 
 ### Available formats
 
-* *compression* : deflate, gzip, zlib (beta)
-* *compression* : lzma, lzma2 (beta)
-* *compression* : lzw (beta)
-* *archive* : zip (encryption and some compression algorithms are missing)
-* *archive* : tar (basic features)
-* *image* : png (some interlaced and bit depth are missing)
-* *font* : freetype (basic features only)
-* *program* : java (extraction of symbols)
-* *program* : elf (32bits, basic features)
+Type | Format | Status
+---|---|---
+compression | **deflate, gzip, zlib** | beta
+compression | **lzma, lzma2** | beta
+compression | **lzw** | beta
+archive | **zip** | encryption and some compression algorithms are missing
+archive | **tar** | basic features
+image | **png** | some interlaced and bit depth are missing
+font | **freetype** | basic features only
+program | **java** | extraction of symbols
+program | **elf** | 32 bits, basic features
 
 ### Coming soon
 
-* *compression* : bzip2
-* *archive* : xz
-* *document* : pdf
-* *sound* : midi
+* compression : **bzip2**
+* archive : **xz**
+* document : **pdf**
+* sound : **midi**
 
 ## Contribute
 
