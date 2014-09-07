@@ -73,6 +73,7 @@ HEADERS += \
     parse/archive/zip.hpp \
     parse/archive/zipfile.hpp \
     parse/compress/bitstream.hpp \
+    parse/compress/bzip2.hpp \
     parse/compress/deflate/deflate.hpp \
     parse/compress/deflate/deflatestream.hpp \
     parse/compress/deflate/gzip.hpp \
@@ -87,6 +88,7 @@ HEADERS += \
     parse/compress/lzma/lzmastream.hpp \
     parse/compress/lzma/lzma2.hpp \
     parse/compress/lzw.hpp \
+    parse/compress/movetofront.hpp \
     parse/compress/parsecompress.hpp \
     parse/font/truetype.hpp \
     parse/image/png.hpp \
@@ -144,6 +146,7 @@ SOURCES += \
     parse/archive/tarfile.cpp \
     parse/archive/zip.cpp \
     parse/archive/zipfile.cpp \
+    parse/compress/bzip2.cpp \
     parse/compress/deflate/deflate.cpp \
     parse/compress/deflate/deflatestream.cpp \
     parse/compress/deflate/gzip.cpp \
@@ -158,6 +161,7 @@ SOURCES += \
     parse/compress/lzma/lzmastream.cpp \
     parse/compress/lzma/lzma2.cpp \
     parse/compress/lzw.cpp \
+    parse/compress/movetofront.cpp \
     parse/compress/parsecompress.cpp \
     parse/font/truetype.cpp \
     parse/image/png.cpp \

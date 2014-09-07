@@ -45,11 +45,13 @@ public:
     static unsigned int getAdler32(const MemChunk& chunk);
     static unsigned int getCRC32(const MemChunk& chunk, unsigned int magic = 0xEDB88320);
     static uint64_t getCRC64(const MemChunk& chunk, uint64_t magic = 0xC96C5795D7870F42ull);
+    static unsigned int getCRC32Reverse(const MemChunk& chunk, unsigned int magic = 0x04C11DB7);
     static Hash<32> getSha256(const MemChunk& chunk);
 
 private:
     static const std::vector<unsigned int>& generateCRC32Table(unsigned int magic);
     static const std::vector<uint64_t>& generateCRC64Table(uint64_t magic);
+    static const std::vector<unsigned int>& generateCRC32ReverseTable(unsigned int magic);
 };
 
 }

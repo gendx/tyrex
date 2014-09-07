@@ -16,6 +16,7 @@ Type | Format | Status
 ---|---|---
 compression | **deflate, gzip, zlib** | beta
 compression | **lzma, lzma2** | beta
+compression | **bzip2** | beta
 compression | **lzw** | beta
 archive | **zip** | encryption and some compression algorithms are missing
 archive | **tar** | basic features
@@ -26,7 +27,6 @@ program | **elf** | 32 bits, basic features
 
 ### Coming soon
 
-* compression : **bzip2**
 * archive : **xz**
 * document : **pdf**
 * sound : **midi**

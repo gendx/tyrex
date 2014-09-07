@@ -48,7 +48,7 @@ unsigned int Hasher::getCRC32(const MemChunk& chunk, unsigned int magic)
 
     unsigned int size = chunk.size();
     for (unsigned int i = 0 ; i < size ; ++i)
-        result = crcTable[(result ^ chunk[i]) & 0xFF] ^ (result >> 8);
+        result = (result >> 8) ^ crcTable[(result ^ chunk[i]) & 0xFF];
 
     return result ^ 0xFFFFFFFF;
 }
@@ -60,9 +60,21 @@ uint64_t Hasher::getCRC64(const MemChunk& chunk, uint64_t magic)
 
     unsigned int size = chunk.size();
     for (unsigned int i = 0 ; i < size ; ++i)
-        result = crcTable[(result ^ chunk[i]) & 0xFF] ^ (result >> 8);
+        result = (result >> 8) ^ crcTable[(result ^ chunk[i]) & 0xFF];
 
     return result ^ 0xFFFFFFFFFFFFFFFFull;
+}
+
+unsigned int Hasher::getCRC32Reverse(const MemChunk& chunk, unsigned int magic)
+{
+    unsigned int result = 0xFFFFFFFF;
+    static const std::vector<unsigned int>& crcTable = Hasher::generateCRC32ReverseTable(magic);
+
+    unsigned int size = chunk.size();
+    for (unsigned int i = 0 ; i < size ; ++i)
+        result = (result << 8) ^ crcTable[((result >> 24) ^ chunk[i]) & 0xFF];
+
+    return result ^ 0xFFFFFFFF;
 }
 
 Hash<32> Hasher::getSha256(const MemChunk& chunk)
@@ -83,7 +95,7 @@ const std::vector<unsigned int>& Hasher::generateCRC32Table(unsigned int magic)
         for (unsigned int k = 0 ; k < 8 ; ++k)
         {
             if (crc & 1)
-                crc = magic ^ (crc >> 1);
+                crc = (crc >> 1) ^ magic;
             else
                 crc >>= 1;
         }
@@ -104,9 +116,30 @@ const std::vector<uint64_t>& Hasher::generateCRC64Table(uint64_t magic)
         for (unsigned int k = 0 ; k < 8 ; ++k)
         {
             if (crc & 1)
-                crc = magic ^ (crc >> 1);
+                crc = (crc >> 1) ^ magic;
             else
                 crc >>= 1;
+        }
+        result.push_back(crc);
+    }
+
+    return result;
+}
+
+const std::vector<unsigned int>& Hasher::generateCRC32ReverseTable(unsigned int magic)
+{
+    static std::vector<unsigned int> result;
+    result.reserve(256);
+
+    for (unsigned int i = 0 ; i < 256 ; ++i)
+    {
+        unsigned int crc = i << 24;
+        for (unsigned int k = 0 ; k < 8 ; ++k)
+        {
+            if (crc & 0x80000000)
+                crc = (crc << 1) ^ magic;
+            else
+                crc <<= 1;
         }
         result.push_back(crc);
     }
