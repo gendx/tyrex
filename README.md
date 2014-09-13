@@ -10,7 +10,7 @@ Tyrex is written in C++11 with Qt4 graphical interface. You can build it with Qt
 
 Work is still in progress and new decoders are coming soon !
 
-### Available formats
+### Already available
 
 Type | Format | Status
 ---|---|---
@@ -27,7 +27,7 @@ program | **elf** | 32 bits, basic features
 
 ### Coming soon
 
-* archive : **xz**
+* compression : **xz**
 * document : **pdf**
 * sound : **midi**
 
