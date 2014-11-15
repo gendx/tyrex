@@ -44,6 +44,7 @@ private:
 
     bool parseArchiveTar(const MemChunk& chunk, Shared<data::Data>& data);
     bool parseArchiveZip(const MemChunk& chunk, Shared<data::Data>& data);
+    bool parseCompressBzip2(const MemChunk& chunk, Shared<data::Data>& data);
     bool parseCompressDeflate(const MemChunk& chunk, Shared<data::Data>& data);
     bool parseCompressGzip(const MemChunk& chunk, Shared<data::Data>& data);
     bool parseCompressLzma(const MemChunk& chunk, Shared<data::Data>& data);

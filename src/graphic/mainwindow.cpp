@@ -144,7 +144,7 @@ void MainWindow::createActions()
     mUnsplitAction = mViewMenu->addAction(QIcon(folder + "unsplit.png"), "&Unsplit");
     mClearConsoleAction = mViewMenu->addAction(QIcon(folder + "clear.png"), "&Clear console");
 
-    mWindowMenu = this->menuBar()->addMenu(QString::fromUtf8("&Window"));
+    mWindowMenu = this->menuBar()->addMenu("&Window");
     mTileAction = new QAction("Ti&le", this);
     mCascadeAction = new QAction("&Cascade", this);
     mTabAction = new QAction("&Tab", this);
@@ -446,7 +446,7 @@ void MainWindow::about()
             "\n"
             "You should have received a copy of the GNU General Public License "
             "along with this program.  If not, see http://www.gnu.org/licenses/gpl-3.0.txt";
-    QMessageBox::about(this, QString::fromUtf8("About Tyrex"), message);
+    QMessageBox::about(this, "About Tyrex", message);
 }
 
 void MainWindow::aboutQt()

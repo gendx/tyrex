@@ -22,6 +22,7 @@
 #include "graphic/dialog/inputdialog.hpp"
 #include "parse/archive/tar.hpp"
 #include "parse/archive/zip.hpp"
+#include "parse/compress/bzip2.hpp"
 #include "parse/compress/deflate/deflate.hpp"
 #include "parse/compress/deflate/gzip.hpp"
 #include "parse/compress/deflate/zlib.hpp"
@@ -57,9 +58,10 @@ void Document::onError(const MemChunk& chunk, Shared<data::Data>& data)
 
 void Document::doParse(const MemChunk& chunk, Shared<data::Data>& data)
 {
-    static const TypeToParser typeToParser {{
+    static const TypeToParser typeToParser {
         {"archive/tar", &Document::parseArchiveTar},
         {"archive/zip", &Document::parseArchiveZip},
+        {"compress/bzip2", &Document::parseCompressBzip2},
         {"compress/deflate", &Document::parseCompressDeflate},
         {"compress/gzip", &Document::parseCompressGzip},
         {"compress/lzma", &Document::parseCompressLzma},
@@ -69,7 +71,7 @@ void Document::doParse(const MemChunk& chunk, Shared<data::Data>& data)
         {"image/png", &Document::parseImagePng},
         {"program/elf32", &Document::parseProgramElf32},
         {"program/java", &Document::parseProgramJava}
-    }};
+    };
 
     QStringList types = Document::findTypes(chunk);
     bool cancelled;
@@ -89,7 +91,7 @@ QStringList Document::findTypes(const MemChunk& chunk)
 {
     static const std::vector<std::pair<std::vector<unsigned char>, QString> > magics {
         {{0x1F, 0x8B}, "compress/gzip"},
-        //{{0x42, 0x5a, 0x68}, "compress/bzip2"},
+        {{0x42, 0x5a, 0x68}, "compress/bzip2"},
         {{0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A}, "image/png"},
         {{0x7F, 0x45, 0x4C, 0x46, 0x01}, "program/elf32"},
         //{{0x7F, 0x45, 0x4C, 0x46, 0x02}, "program/elf64"},
@@ -143,10 +145,24 @@ bool Document::parseArchiveZip(const MemChunk& chunk, Shared<data::Data>& data)
     return false;
 }
 
+bool Document::parseCompressBzip2(const MemChunk& chunk, Shared<data::Data>& data)
+{
+    Bzip2 bzip2;
+    Shared<data::Compress> parsedData;
+
+    if (bzip2.parse(chunk, parsedData))
+    {
+        data = parsedData;
+        return true;
+    }
+
+    return false;
+}
+
 bool Document::parseCompressDeflate(const MemChunk& chunk, Shared<data::Data>& data)
 {
     unsigned int window;
-    if (graphic::InputDialog::getUint(window, QString::fromUtf8("Taille de la fenêtre de décompression"), mParent))
+    if (graphic::InputDialog::getUint(window, "Size of decompression window", mParent))
     {
         Deflate deflate(window);
         Shared<data::Compress> parsedData;

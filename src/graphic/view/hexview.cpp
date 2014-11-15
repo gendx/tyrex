@@ -80,7 +80,7 @@ void HexView::saveAction()
         return;
 
     if (QFileInfo(path).exists())
-        if (QMessageBox::warning(this, "Enregistrement", QString::fromUtf8("Le fichier existe déjà. Voulez-vous l'écraser ?"), QMessageBox::Save | QMessageBox::Cancel, QMessageBox::Cancel) != QMessageBox::Save)
+        if (QMessageBox::warning(this, "Save", QString("File %1 already exists. Do you want to overwrite it ?").arg(path), QMessageBox::Save | QMessageBox::Cancel, QMessageBox::Cancel) != QMessageBox::Save)
             return;
 
     std::ofstream ofs(QFile::encodeName(path).constData(), std::ios_base::binary);

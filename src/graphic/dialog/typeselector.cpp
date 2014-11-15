@@ -25,6 +25,7 @@ const std::vector<QString> TypeSelector::mTypes {
     "binary",
     "archive/tar",
     "archive/zip",
+    "compress/bzip2",
     "compress/deflate",
     "compress/gzip",
     "compress/lzma",
