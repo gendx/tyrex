@@ -43,7 +43,7 @@ HexFindDialog::HexFindDialog(QWidget* parent) :
     mLineAscii->setFont(PlatformSpecific::font());
     mLineHex->setFont(PlatformSpecific::font());
 
-    mLineHex->setValidator(new QRegExpValidator(QRegExp("^([0-9A-Fa-f]|\\s)*$")));
+    mLineHex->setValidator(new QRegExpValidator(QRegExp("^([0-9A-Fa-f]|\\s)*$"), this));
 
     mLayout->setContentsMargins(2, 2, 2, 2);
     mLayout->setSpacing(2);

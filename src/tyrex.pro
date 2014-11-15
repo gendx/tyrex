@@ -16,8 +16,6 @@
 
 
 TEMPLATE = app
-DESTDIR = ../bin
-
 INCLUDEPATH += .
 
 HEADERS += \
