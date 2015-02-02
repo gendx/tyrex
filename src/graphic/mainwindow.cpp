@@ -1,6 +1,6 @@
 /*
     Tyrex - the versatile file decoder.
-    Copyright (C) 2014  G. Endignoux
+    Copyright (C) 2014 - 2015  G. Endignoux
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -432,7 +432,7 @@ void MainWindow::about()
 {
     QString message =
             "Tyrex - the versatile file decoder.\n"
-            "Copyright (C) 2014  G. Endignoux\n"
+            "Copyright (C) 2014 - 2015  G. Endignoux\n"
             "\n"
             "This program is free software: you can redistribute it and/or modify "
             "it under the terms of the GNU General Public License as published by "
