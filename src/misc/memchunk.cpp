@@ -81,21 +81,21 @@ void MemChunk::write(std::ostream& file) const
 
 bool MemChunk::uncompare(const std::string& str, unsigned int start) const
 {
-    if (start + str.size() > mSize)
+    if (!Util::checkRange(start, str.size(), mSize))
         return true;
     return std::memcmp(&(*mData)[mStart + start], str.c_str(), str.size());
 }
 
 bool MemChunk::uncompare(const std::vector<unsigned char>& str, unsigned int start) const
 {
-    if (start + str.size() > mSize)
+    if (!Util::checkRange(start, str.size(), mSize))
         return true;
     return std::memcmp(&(*mData)[mStart + start], &str[0], str.size());
 }
 
 bool MemChunk::uncompare(const unsigned char* data, unsigned int size, unsigned int start) const
 {
-    if (start + size > mSize)
+    if (!Util::checkRange(start, size, mSize))
         return true;
     return std::memcmp(&(*mData)[mStart + start], data, size);
 }
