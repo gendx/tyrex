@@ -21,7 +21,7 @@
 namespace tyrex {
 namespace graphic {
 
-FontView::FontView(QList<Shared<data::Path> > path, QWidget* parent) :
+FontView::FontView(QList<std::shared_ptr<data::Path> > path, QWidget* parent) :
     View(parent),
     mLayout(new QHBoxLayout(this)),
     mSplitter(new QSplitter),
@@ -64,7 +64,7 @@ void FontView::selected(QModelIndex index)
     mTable->setContent(FontView::pointsOfPath(mPath[i]));
 }
 
-QList<QStringList> FontView::pointsOfPath(const Shared<data::Path>& path)
+QList<QStringList> FontView::pointsOfPath(const std::shared_ptr<data::Path>& path)
 {
     QList<QStringList> content;
     for (const data::Path::PointInfo& pi : path->points())

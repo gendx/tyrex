@@ -44,7 +44,7 @@ bool Parser<inputT, outputT>::parse(const inputT& in, outputT& out)
 
 
 template <typename dataT>
-bool DataParser<dataT>::parse(const MemChunk& in, Shared<dataT>& out)
+bool DataParser<dataT>::parse(const MemChunk& in, std::shared_ptr<dataT>& out)
 {
     try
     {

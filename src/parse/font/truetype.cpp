@@ -37,12 +37,12 @@ Truetype::Truetype() :
 }
 
 
-void Truetype::onError(const MemChunk& chunk, Shared<data::Font>& data)
+void Truetype::onError(const MemChunk& chunk, std::shared_ptr<data::Font>& data)
 {
-    data = makeShared<data::Font>(chunk, mSrcColorizer, mGlyphs, mProperties);
+    data = std::make_shared<data::Font>(chunk, mSrcColorizer, mGlyphs, mProperties);
 }
 
-void Truetype::doParse(const MemChunk& chunk, Shared<data::Font>& data)
+void Truetype::doParse(const MemChunk& chunk, std::shared_ptr<data::Font>& data)
 {
     unsigned int size = chunk.size();
 
@@ -137,7 +137,7 @@ void Truetype::doParse(const MemChunk& chunk, Shared<data::Font>& data)
         Except::reportError(size, "truetype glyf table", "table not found");
     this->parseGlyf(chunk, glyf->second.first, glyf->second.second);
 
-    data = makeShared<data::Font>(chunk, mSrcColorizer, mGlyphs, mProperties);
+    data = std::make_shared<data::Font>(chunk, mSrcColorizer, mGlyphs, mProperties);
 }
 
 
@@ -511,7 +511,7 @@ bool Truetype::parseGlyph(const MemChunk& glyf)
         y.push_back(last);
     }
 
-    Shared<data::Path> path(makeShared<data::Path>());
+    std::shared_ptr<data::Path> path(std::make_shared<data::Path>());
 
     std::vector<std::pair<data::Path::Point, bool> > points;
     for (unsigned int j = 0 ; j <= lastPoint ; ++j)
@@ -533,7 +533,7 @@ bool Truetype::parseGlyph(const MemChunk& glyf)
     return true;
 }
 
-void Truetype::appendPath(Shared<data::Path> path, const std::vector<std::pair<data::Path::Point, bool> >& points)
+void Truetype::appendPath(std::shared_ptr<data::Path> path, const std::vector<std::pair<data::Path::Point, bool> >& points)
 {
     if (points.empty())
         return;

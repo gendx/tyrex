@@ -43,21 +43,21 @@ void Archive::appendToTree(graphic::TreeNodeModel& tree) const
     this->appendToTree(tree, mTreeFiles);
 }
 
-Shared<graphic::View> Archive::view() const
+std::shared_ptr<graphic::View> Archive::view() const
 {
-    return makeShared<graphic::View, graphic::ArchiveView>(mFileInfoFilter, mTreeFiles);
+    return std::make_shared<graphic::ArchiveView>(mFileInfoFilter, mTreeFiles);
 }
 
 
 void Archive::appendToTree(graphic::TreeNodeModel& tree, const TreeLeaf<File>& file) const
 {
-    Shared<graphic::View> view = makeShared<graphic::View, graphic::HexView>(file.mContent.mChunk);
+    std::shared_ptr<graphic::View> view = std::make_shared<graphic::HexView>(file.mContent.mChunk);
     tree.appendLeaf(file.mTitle, view);
 }
 
 void Archive::appendToTree(graphic::TreeNodeModel& tree, const Tree<File>& folder) const
 {
-    Shared<graphic::TreeNodeModel> node = makeShared<graphic::TreeNodeModel>(folder.mTitle);
+    std::shared_ptr<graphic::TreeNodeModel> node = std::make_shared<graphic::TreeNodeModel>(folder.mTitle);
 
     for (auto& subtree : folder.mSubtrees)
         this->appendToTree(*node, *subtree);
@@ -89,7 +89,7 @@ void Archive::makeTreeFiles()
                     folder = folders[key];
                 else
                 {
-                    Shared<Tree<File> > tmp = makeShared<Tree<File> >(name.mid(pos + 1, nextpos - pos - 1));
+                    std::shared_ptr<Tree<File> > tmp = std::make_shared<Tree<File> >(name.mid(pos + 1, nextpos - pos - 1));
                     folder->appendTree(tmp);
                     folder = tmp.get();
                     folders[key] = folder;

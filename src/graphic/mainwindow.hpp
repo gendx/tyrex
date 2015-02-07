@@ -25,8 +25,8 @@
 #include <QVBoxLayout>
 #include <QSplitter>
 #include <QSignalMapper>
+#include <memory>
 #include "misc/memchunk.hpp"
-#include "misc/shared.hpp"
 #include "actionset.hpp"
 #include "graphic/view/view.hpp"
 
@@ -81,7 +81,7 @@ private:
     void closeEvent(QCloseEvent* event);
 
     void createActions();
-    void updateViewActions(Shared<View> currentView);
+    void updateViewActions(std::shared_ptr<View> currentView);
     static Document* createDocument(const MemChunk& chunk);
     bool openFromMemChunk(const MemChunk& chunk, const QString& path);
     bool openFromMemChunk(const MemChunk& chunk);
@@ -93,7 +93,7 @@ private:
     static HexFindDialog* mHexFindDialog;
 
 
-    Shared<View> mCurrentView;
+    std::shared_ptr<View> mCurrentView;
     ActionSet mViewActions;
     QList<QToolBar*> mViewToolbars;
 

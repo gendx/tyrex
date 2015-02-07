@@ -46,7 +46,7 @@ Document::Document(const MemChunk& chunk, bool& success, QWidget* parent) :
 }
 
 
-Shared<View> Document::currentView()
+std::shared_ptr<View> Document::currentView()
 {
     return mCurrentSideTree->currentView();
 }
@@ -70,7 +70,7 @@ void Document::setFocus(SideTree* sideTree)
 
 void Document::split()
 {
-    Shared<TreeNodeModel> treeModel = mData->treeModel("");
+    std::shared_ptr<TreeNodeModel> treeModel = mData->treeModel("");
     SideTree* sideTree = new SideTree(treeModel, mData->firstView());
     mSplitter->addWidget(sideTree);
 

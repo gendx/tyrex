@@ -46,9 +46,9 @@ void ByteSequence::appendToTree(graphic::TreeNodeModel& tree) const
     tree.appendLeaf("Source", this->view());
 }
 
-Shared<graphic::View> ByteSequence::view() const
+std::shared_ptr<graphic::View> ByteSequence::view() const
 {
-    return makeShared<graphic::View, graphic::HexView>(mChunk, mColorizer);
+    return std::make_shared<graphic::HexView>(mChunk, mColorizer);
 }
 
 

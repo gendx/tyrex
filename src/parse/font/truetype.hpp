@@ -31,8 +31,8 @@ public:
     Truetype();
 
 private:
-    void doParse(const MemChunk& chunk, Shared<data::Font>& data);
-    void onError(const MemChunk& chunk, Shared<data::Font>& data);
+    void doParse(const MemChunk& chunk, std::shared_ptr<data::Font>& data);
+    void onError(const MemChunk& chunk, std::shared_ptr<data::Font>& data);
 
     void parseHead(const MemChunk& chunk, unsigned int pos, unsigned int size);
     void parseHhea(const MemChunk& chunk, unsigned int pos, unsigned int size);
@@ -43,14 +43,14 @@ private:
     bool parseGlyph(const MemChunk& glyf);
     bool parseCompoundGlyph(const MemChunk& glyf);
 
-    void appendPath(Shared<data::Path> path, const std::vector<std::pair<data::Path::Point, bool> >& points);
+    void appendPath(std::shared_ptr<data::Path> path, const std::vector<std::pair<data::Path::Point, bool> >& points);
 
     static unsigned char mMagic1[4];
     static unsigned char mMagic2[4];
     static unsigned int mMagicHead;
 
     data::Colorizer mSrcColorizer;
-    QList<Shared<data::Path> > mGlyphs;
+    QList<std::shared_ptr<data::Path> > mGlyphs;
     data::Table mProperties;
 
     unsigned int mIndexToLocFormat;

@@ -36,7 +36,7 @@ void Elf::appendToTree(graphic::TreeNodeModel& tree) const
     tree.appendLeaf("Source", mSource.view());
     mProperties.appendToTree(tree);
 
-    Shared<graphic::TreeNodeModel> node = makeShared<graphic::TreeNodeModel>("Elf");
+    std::shared_ptr<graphic::TreeNodeModel> node = std::make_shared<graphic::TreeNodeModel>("Elf");
     mSegmentsHeader.appendToTree(*node);
     mSectionsHeader.appendToTree(*node);
     tree.appendTree(node);

@@ -31,12 +31,12 @@ Deflate::Deflate(unsigned int windowSize) :
 }
 
 
-void Deflate::onError(const MemChunk& chunk, Shared<data::Compress>& data)
+void Deflate::onError(const MemChunk& chunk, std::shared_ptr<data::Compress>& data)
 {
-    data = makeShared<data::Compress>(mChunk, mDecompChunk, mSrcColorizer, mDecompColorizer);
+    data = std::make_shared<data::Compress>(mChunk, mDecompChunk, mSrcColorizer, mDecompColorizer);
 }
 
-void Deflate::doParse(const MemChunk& chunk, Shared<data::Compress>& data)
+void Deflate::doParse(const MemChunk& chunk, std::shared_ptr<data::Compress>& data)
 {
     mChunk = chunk;
     DeflateStream stream(mChunk);
@@ -71,7 +71,7 @@ void Deflate::doParse(const MemChunk& chunk, Shared<data::Compress>& data)
     mSrcColorizer.addHighlight(0, mEnd, QColor(128, 128, 255, 64));
     mSrcColorizer.addSeparation(mEnd, 2);
 
-    data = makeShared<data::Compress>(mChunk, mDecompChunk, mSrcColorizer, mDecompColorizer);
+    data = std::make_shared<data::Compress>(mChunk, mDecompChunk, mSrcColorizer, mDecompColorizer);
 }
 
 

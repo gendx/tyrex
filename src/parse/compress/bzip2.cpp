@@ -33,12 +33,12 @@ Bzip2::Bzip2() :
 }
 
 
-void Bzip2::onError(const MemChunk& chunk, Shared<data::Compress>& data)
+void Bzip2::onError(const MemChunk& chunk, std::shared_ptr<data::Compress>& data)
 {
-    data = makeShared<data::Compress>(chunk, mDecompChunk, mSrcColorizer, mDecompColorizer);
+    data = std::make_shared<data::Compress>(chunk, mDecompChunk, mSrcColorizer, mDecompColorizer);
 }
 
-void Bzip2::doParse(const MemChunk& chunk, Shared<data::Compress>& data)
+void Bzip2::doParse(const MemChunk& chunk, std::shared_ptr<data::Compress>& data)
 {
     unsigned int size = chunk.size();
 
@@ -76,7 +76,7 @@ void Bzip2::doParse(const MemChunk& chunk, Shared<data::Compress>& data)
 
     mSrcColorizer.addHighlight(3, size - 3, QColor(128, 128, 255, 64));
 
-    data = makeShared<data::Compress>(chunk, mDecompChunk, mSrcColorizer, mDecompColorizer);
+    data = std::make_shared<data::Compress>(chunk, mDecompChunk, mSrcColorizer, mDecompColorizer);
 }
 
 

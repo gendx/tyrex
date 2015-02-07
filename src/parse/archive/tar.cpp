@@ -28,12 +28,12 @@ Tar::Tar()
 }
 
 
-void Tar::onError(const MemChunk& chunk, Shared<data::Archive>& data)
+void Tar::onError(const MemChunk& chunk, std::shared_ptr<data::Archive>& data)
 {
-    data = makeShared<data::Archive>(chunk, mSrcColorizer, data::FileInfoFilter::mTarFilter, mExtractedFiles);
+    data = std::make_shared<data::Archive>(chunk, mSrcColorizer, data::FileInfoFilter::mTarFilter, mExtractedFiles);
 }
 
-void Tar::doParse(const MemChunk& chunk, Shared<data::Archive>& data)
+void Tar::doParse(const MemChunk& chunk, std::shared_ptr<data::Archive>& data)
 {
     unsigned int size = chunk.size();
     unsigned int processed = 0;
@@ -53,7 +53,7 @@ void Tar::doParse(const MemChunk& chunk, Shared<data::Archive>& data)
         mExtractedFiles.push_back(file);
     }
 
-    data = makeShared<data::Archive>(chunk, mSrcColorizer, data::FileInfoFilter::mTarFilter, mExtractedFiles);
+    data = std::make_shared<data::Archive>(chunk, mSrcColorizer, data::FileInfoFilter::mTarFilter, mExtractedFiles);
 }
 
 }

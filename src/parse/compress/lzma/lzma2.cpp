@@ -30,12 +30,12 @@ Lzma2::Lzma2() :
 }
 
 
-void Lzma2::onError(const MemChunk& chunk, Shared<data::Compress>& data)
+void Lzma2::onError(const MemChunk& chunk, std::shared_ptr<data::Compress>& data)
 {
-    data = makeShared<data::Compress>(chunk, mDecompChunk, mSrcColorizer, mDecompColorizer);
+    data = std::make_shared<data::Compress>(chunk, mDecompChunk, mSrcColorizer, mDecompColorizer);
 }
 
-void Lzma2::doParse(const MemChunk& chunk, Shared<data::Compress>& data)
+void Lzma2::doParse(const MemChunk& chunk, std::shared_ptr<data::Compress>& data)
 {
     unsigned int size = chunk.size();
     unsigned int pos = 0;
@@ -155,7 +155,7 @@ void Lzma2::doParse(const MemChunk& chunk, Shared<data::Compress>& data)
     }
 
     mEnd = pos;
-    data = makeShared<data::Compress>(chunk, mDecompChunk, mSrcColorizer, mDecompColorizer);
+    data = std::make_shared<data::Compress>(chunk, mDecompChunk, mSrcColorizer, mDecompColorizer);
 }
 
 
@@ -183,7 +183,7 @@ void Lzma2::parseLzma(const MemChunk& chunk, unsigned int pos, unsigned int unpa
     }
 
     if (resetState)
-        mLzmaDecoder = makeShared<LzmaDecoder>(lc, lp, pb);
+        mLzmaDecoder = std::make_shared<LzmaDecoder>(lc, lp, pb);
 
     mLzmaDecoder->sync(mVirtualDictStart, true, unpackSize, false);
     MemChunk src = chunk.subChunk(pos, packSize);

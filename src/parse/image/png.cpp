@@ -32,12 +32,12 @@ Png::Png() :
 }
 
 
-void Png::onError(const MemChunk& chunk, Shared<data::Image>& data)
+void Png::onError(const MemChunk& chunk, std::shared_ptr<data::Image>& data)
 {
-    data = makeShared<data::Image>(chunk, mSrcColorizer, Shared<data::Pixmap>(), mProperties);
+    data = std::make_shared<data::Image>(chunk, mSrcColorizer, std::shared_ptr<data::Pixmap>(), mProperties);
 }
 
-void Png::doParse(const MemChunk& chunk, Shared<data::Image>& data)
+void Png::doParse(const MemChunk& chunk, std::shared_ptr<data::Image>& data)
 {
     unsigned int size = chunk.size();
 
@@ -113,7 +113,7 @@ void Png::doParse(const MemChunk& chunk, Shared<data::Image>& data)
             if (size % 3 || size == 0 || size > 3 * (1u << mDepth))
                 Except::reportError(mChunks[i].mStart, "png PLTE chunk", "invalid PLTE chunk size");
 
-            mPalette = makeShared<data::Pixmap>(data::Pixmap::rgb24, size / 3, 1, mChunks[i].mData);
+            mPalette = std::make_shared<data::Pixmap>(data::Pixmap::rgb24, size / 3, 1, mChunks[i].mData);
         }
 
         // IDAT
@@ -126,7 +126,7 @@ void Png::doParse(const MemChunk& chunk, Shared<data::Image>& data)
     }
 
     Zlib zlib;
-    Shared<data::Compress> zlibData;
+    std::shared_ptr<data::Compress> zlibData;
 
     if (!zlib.parse(idat, zlibData))
         Except::reportError(0, "png idat", "error decompressing idat");
@@ -134,7 +134,7 @@ void Png::doParse(const MemChunk& chunk, Shared<data::Image>& data)
 
     this->parseIDAT(decompChunk);
 
-    data = makeShared<data::Image>(chunk, mSrcColorizer, mPixmap, mProperties);
+    data = std::make_shared<data::Image>(chunk, mSrcColorizer, mPixmap, mProperties);
 }
 
 
@@ -320,11 +320,11 @@ void Png::parseIDAT(const MemChunk& src)
     case 2: // truecolour
     case 4: // greyscale with alpha
     case 6: // truecolour with alpha
-        mPixmap = makeShared<data::Pixmap>(type, mWidth, mHeight, unfiltered);
+        mPixmap = std::make_shared<data::Pixmap>(type, mWidth, mHeight, unfiltered);
         break;
     case 3: // indexed
         bool ok;
-        mPixmap = makeShared<data::Pixmap>(data::Pixmap(indexedtype, mWidth, mHeight, unfiltered).unindex(*mPalette, ok));
+        mPixmap = std::make_shared<data::Pixmap>(data::Pixmap(indexedtype, mWidth, mHeight, unfiltered).unindex(*mPalette, ok));
         if (!ok)
             Except::reportError(mChunks[0].mStart, "png IDAT chunk", "invalid index in PLTE");
     }

@@ -23,7 +23,7 @@
 namespace tyrex {
 namespace data {
 
-Image::Image(const MemChunk& srcChunk, const Colorizer& srcColorizer, const Shared<Pixmap>& pixmap, const Table& properties) :
+Image::Image(const MemChunk& srcChunk, const Colorizer& srcColorizer, const std::shared_ptr<Pixmap>& pixmap, const Table& properties) :
     mSource(srcChunk, srcColorizer),
     mPixmap(pixmap),
     mProperties(properties)
@@ -39,9 +39,9 @@ void Image::appendToTree(graphic::TreeNodeModel& tree) const
     tree.appendLeaf("Image", mFirstView);
 }
 
-Shared<graphic::View> Image::view() const
+std::shared_ptr<graphic::View> Image::view() const
 {
-    return makeShared<graphic::View, graphic::ImageView>(mPixmap);
+    return std::make_shared<graphic::ImageView>(mPixmap);
 }
 
 }

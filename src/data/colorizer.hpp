@@ -22,7 +22,7 @@
 #include <QMap>
 #include <QColor>
 #include <QPainter>
-#include "misc/shared.hpp"
+#include <memory>
 
 namespace tyrex {
 namespace data {
@@ -138,7 +138,7 @@ class Colorizer
 {
 public:
     inline Colorizer();
-    inline Colorizer(Shared<AbstractHighlighter> highlighter, Shared<AbstractSeparater> separater);
+    inline Colorizer(std::shared_ptr<AbstractHighlighter> highlighter, std::shared_ptr<AbstractSeparater> separater);
 
     void addHighlight(unsigned int start, unsigned int size, QColor color);
     void addSeparation(unsigned int pos, unsigned int size);
@@ -146,13 +146,13 @@ public:
     void colorize(QPainter& painter, unsigned int pos, unsigned int width, unsigned int height, unsigned int lineSpacing, unsigned int descent, unsigned int countPlaces, unsigned int countHoriz, unsigned int countVert, unsigned int leftmargin) const;
 
 private:
-    Shared<AbstractHighlighter> mHighlighter;
-    Shared<AbstractSeparater> mSeparater;
+    std::shared_ptr<AbstractHighlighter> mHighlighter;
+    std::shared_ptr<AbstractSeparater> mSeparater;
 };
 
 inline Colorizer::Colorizer() :
-    mHighlighter(makeShared<AbstractHighlighter, Highlighter>()), mSeparater(makeShared<AbstractSeparater, Separater>()) {}
-inline Colorizer::Colorizer(Shared<AbstractHighlighter> highlighter, Shared<AbstractSeparater> separater) :
+    mHighlighter(std::make_shared<Highlighter>()), mSeparater(std::make_shared<Separater>()) {}
+inline Colorizer::Colorizer(std::shared_ptr<AbstractHighlighter> highlighter, std::shared_ptr<AbstractSeparater> separater) :
     mHighlighter(highlighter), mSeparater(separater) {}
 
 }

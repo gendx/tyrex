@@ -20,7 +20,7 @@
 #define TYREX_TREE_HPP
 
 #include <QString>
-#include "misc/shared.hpp"
+#include <memory>
 
 namespace tyrex {
 
@@ -43,11 +43,11 @@ public:
         mTitle(title) {}
 
     void appendLeaf(QString title, const LeafT& content);
-    void appendTree(Shared<NodeT> tree);
+    void appendTree(std::shared_ptr<NodeT> tree);
 
     QString mTitle;
     QList<TreeLeaf<LeafT> > mLeaves;
-    QList<Shared<NodeT> > mSubtrees;
+    QList<std::shared_ptr<NodeT> > mSubtrees;
 };
 
 template <typename LeafT>

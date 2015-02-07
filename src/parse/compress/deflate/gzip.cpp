@@ -32,12 +32,12 @@ Gzip::Gzip()
 }
 
 
-void Gzip::onError(const MemChunk& chunk, Shared<data::Compress>& data)
+void Gzip::onError(const MemChunk& chunk, std::shared_ptr<data::Compress>& data)
 {
-    data = makeShared<data::Compress>(chunk, mDecompChunk, mSrcColorizer, mDecompColorizer);
+    data = std::make_shared<data::Compress>(chunk, mDecompChunk, mSrcColorizer, mDecompColorizer);
 }
 
-void Gzip::doParse(const MemChunk& chunk, Shared<data::Compress>& data)
+void Gzip::doParse(const MemChunk& chunk, std::shared_ptr<data::Compress>& data)
 {
     unsigned int size = chunk.size();
 
@@ -142,7 +142,7 @@ void Gzip::doParse(const MemChunk& chunk, Shared<data::Compress>& data)
 
     // deflate
     Deflate deflate(1 << 15);
-    Shared<data::Compress> deflateData;
+    std::shared_ptr<data::Compress> deflateData;
 
     if (!deflate.parse(chunk.subChunk(processed, size - processed), deflateData))
         Except::reportError(size, "gzip, deflate", "error parsing deflate stream");
@@ -177,7 +177,7 @@ void Gzip::doParse(const MemChunk& chunk, Shared<data::Compress>& data)
     if (size != processed)
         Except::reportError(processed, "gzip", "expected end of data");
 
-    data = makeShared<data::Compress>(chunk, mDecompChunk, mSrcColorizer, mDecompColorizer);
+    data = std::make_shared<data::Compress>(chunk, mDecompChunk, mSrcColorizer, mDecompColorizer);
 }
 
 }

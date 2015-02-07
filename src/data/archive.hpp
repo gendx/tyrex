@@ -32,7 +32,7 @@ public:
     Archive(const MemChunk& srcChunk, const Colorizer& srcColorizer, const FileInfoFilter& fileInfoFilter, const std::vector<File>& files);
 
     void appendToTree(graphic::TreeNodeModel& tree) const;
-    Shared<graphic::View> view() const;
+    std::shared_ptr<graphic::View> view() const;
 
 private:
     void makeTreeFiles();

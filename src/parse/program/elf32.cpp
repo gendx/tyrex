@@ -32,12 +32,12 @@ Elf32::Elf32()
 }
 
 
-void Elf32::onError(const MemChunk& chunk, Shared<data::Elf>& data)
+void Elf32::onError(const MemChunk& chunk, std::shared_ptr<data::Elf>& data)
 {
-    data = makeShared<data::Elf>(chunk, mSrcColorizer, QList<QStringList>(), QList<QStringList>(), data::Table());
+    data = std::make_shared<data::Elf>(chunk, mSrcColorizer, QList<QStringList>(), QList<QStringList>(), data::Table());
 }
 
-void Elf32::doParse(const MemChunk& chunk, Shared<data::Elf>& data)
+void Elf32::doParse(const MemChunk& chunk, std::shared_ptr<data::Elf>& data)
 {
     unsigned int size = chunk.size();
 
@@ -123,7 +123,7 @@ void Elf32::doParse(const MemChunk& chunk, Shared<data::Elf>& data)
         sectionsHeader.append(Elf32::parseSectionHeader(shdr));
     }
 
-    data = makeShared<data::Elf>(chunk, mSrcColorizer, segmentsHeader, sectionsHeader, properties);
+    data = std::make_shared<data::Elf>(chunk, mSrcColorizer, segmentsHeader, sectionsHeader, properties);
 }
 
 

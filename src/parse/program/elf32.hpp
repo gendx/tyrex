@@ -32,8 +32,8 @@ public:
     Elf32();
 
 private:
-    void doParse(const MemChunk& chunk, Shared<data::Elf>& data);
-    void onError(const MemChunk& chunk, Shared<data::Elf>& data);
+    void doParse(const MemChunk& chunk, std::shared_ptr<data::Elf>& data);
+    void onError(const MemChunk& chunk, std::shared_ptr<data::Elf>& data);
 
     static QStringList parseSegmentHeader(const Elf32_Phdr& phdr);
     static QStringList parseSectionHeader(const Elf32_Shdr& shdr);

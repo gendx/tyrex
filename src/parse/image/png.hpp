@@ -31,8 +31,8 @@ public:
     Png();
 
 private:
-    void doParse(const MemChunk& chunk, Shared<data::Image>& data);
-    void onError(const MemChunk& chunk, Shared<data::Image>& data);
+    void doParse(const MemChunk& chunk, std::shared_ptr<data::Image>& data);
+    void onError(const MemChunk& chunk, std::shared_ptr<data::Image>& data);
 
     void parseIHDR();
     void parseIDAT(const MemChunk& src);
@@ -55,8 +55,8 @@ private:
     data::Table mProperties;
 
     std::vector<Element> mChunks;
-    Shared<data::Pixmap> mPixmap;
-    Shared<data::Pixmap> mPalette;
+    std::shared_ptr<data::Pixmap> mPixmap;
+    std::shared_ptr<data::Pixmap> mPalette;
     unsigned int mWidth;
     unsigned int mHeight;
     unsigned char mDepth;

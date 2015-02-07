@@ -21,7 +21,7 @@
 namespace tyrex {
 namespace graphic {
 
-QStandardItem* TreeNodeModel::makeTreeModel(QStandardItem* rootItem, QMap<QStandardItem*, Shared<View> >& itemToView, const Shared<View>& firstView, bool& firstViewFound) const
+QStandardItem* TreeNodeModel::makeTreeModel(QStandardItem* rootItem, QMap<QStandardItem*, std::shared_ptr<View> >& itemToView, const std::shared_ptr<View>& firstView, bool& firstViewFound) const
 {
     QStandardItem* firstItem = 0;
 
@@ -44,7 +44,7 @@ QStandardItem* TreeNodeModel::makeTreeModel(QStandardItem* rootItem, QMap<QStand
     {
         QStandardItem* item = new QStandardItem(subtree->mTitle);
         rootItem->appendRow(item);
-        itemToView[item] = Shared<View>();
+        itemToView[item] = std::shared_ptr<View>();
 
         bool found = false;
         item = subtree->makeTreeModel(item, itemToView, firstView, found);
@@ -62,14 +62,14 @@ QStandardItem* TreeNodeModel::makeTreeModel(QStandardItem* rootItem, QMap<QStand
 }
 
 
-TreeModel::TreeModel(Shared<TreeNodeModel> root, QStandardItemModel& model, const Shared<View>& firstView) :
+TreeModel::TreeModel(std::shared_ptr<TreeNodeModel> root, QStandardItemModel& model, const std::shared_ptr<View>& firstView) :
     mRoot(root)
 {
     bool found;
     mFirstItem = model.indexFromItem(mRoot->makeTreeModel(model.invisibleRootItem(), mItemToView, firstView, found));
 }
 
-Shared<View> TreeModel::viewForItem(QStandardItem* item) const
+std::shared_ptr<View> TreeModel::viewForItem(QStandardItem* item) const
 {
     return mItemToView[item];
 }

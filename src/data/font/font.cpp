@@ -22,7 +22,7 @@
 namespace tyrex {
 namespace data {
 
-Font::Font(const MemChunk& srcChunk, const Colorizer& srcColorizer, const QList<Shared<Path> >& glyphs, const Table& properties) :
+Font::Font(const MemChunk& srcChunk, const Colorizer& srcColorizer, const QList<std::shared_ptr<Path> >& glyphs, const Table& properties) :
     mSource(srcChunk, srcColorizer),
     mGlyphs(glyphs),
     mProperties(properties)
@@ -34,7 +34,7 @@ void Font::appendToTree(graphic::TreeNodeModel& tree) const
 {
     tree.appendLeaf("Source", mSource.view());
     mProperties.appendToTree(tree);
-    tree.appendLeaf("Glyphs", makeShared<graphic::View, graphic::FontView>(mGlyphs));
+    tree.appendLeaf("Glyphs", std::make_shared<graphic::FontView>(mGlyphs));
 }
 
 }

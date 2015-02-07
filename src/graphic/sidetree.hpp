@@ -33,9 +33,9 @@ class SideTree : public QWidget
     Q_OBJECT
 
 public:
-    SideTree(Shared<TreeNodeModel> model, const Shared<View>& firstView);
+    SideTree(std::shared_ptr<TreeNodeModel> model, const std::shared_ptr<View>& firstView);
 
-    Shared<View> currentView();
+    std::shared_ptr<View> currentView();
 
 signals:
     void viewChanged();
@@ -53,7 +53,7 @@ private:
     QStackedWidget* mStackedWidget;
     QStandardItemModel* mItemModel;
     TreeModel mModel;
-    Shared<View> mCurrentView;
+    std::shared_ptr<View> mCurrentView;
 };
 
 }

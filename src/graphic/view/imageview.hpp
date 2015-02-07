@@ -20,11 +20,11 @@
 #define TYREX_IMAGEVIEW_HPP
 
 #include "view.hpp"
-#include "misc/shared.hpp"
 #include "data/image/pixmap.hpp"
 #include <QImage>
 #include <QHBoxLayout>
 #include <QScrollArea>
+#include <memory>
 
 namespace tyrex {
 namespace graphic {
@@ -32,7 +32,7 @@ namespace graphic {
 class ImageWidget : public QWidget
 {
 public:
-    ImageWidget(Shared<data::Pixmap> pixmap, QWidget* parent = 0);
+    ImageWidget(std::shared_ptr<data::Pixmap> pixmap, QWidget* parent = 0);
 
     void setZoom(int zoom);
 
@@ -41,7 +41,7 @@ private:
     void paintEvent(QPaintEvent* event);
     void resizeEvent(QResizeEvent* event);
 
-    Shared<data::Pixmap> mPixmap;
+    std::shared_ptr<data::Pixmap> mPixmap;
     QImage mQImage;
     int mZoom;
 };
@@ -49,7 +49,7 @@ private:
 class ImageView : public View
 {
 public:
-    ImageView(Shared<data::Pixmap> pixmap, QWidget* parent = 0);
+    ImageView(std::shared_ptr<data::Pixmap> pixmap, QWidget* parent = 0);
 
 private:
     void wheelEvent(QWheelEvent* event);

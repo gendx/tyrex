@@ -43,7 +43,7 @@ Table::Table(const QString& title, const QStringList& header, const QList<QStrin
 
 void Table::appendToTree(graphic::TreeNodeModel& tree) const
 {
-    tree.appendLeaf(mTitle, makeShared<graphic::View, graphic::TableView>(mHeader, mContent));
+    tree.appendLeaf(mTitle, std::make_shared<graphic::TableView>(mHeader, mContent));
 }
 
 void Table::push(const QString& str1, const QString& str2)

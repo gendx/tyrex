@@ -28,12 +28,12 @@ JavaClass::JavaClass()
 }
 
 
-void JavaClass::onError(const MemChunk& chunk, Shared<data::JavaClass>& data)
+void JavaClass::onError(const MemChunk& chunk, std::shared_ptr<data::JavaClass>& data)
 {
-    data = makeShared<data::JavaClass>(chunk, mSrcColorizer, data::Table(), data::Table());
+    data = std::make_shared<data::JavaClass>(chunk, mSrcColorizer, data::Table(), data::Table());
 }
 
-void JavaClass::doParse(const MemChunk& chunk, Shared<data::JavaClass>& data)
+void JavaClass::doParse(const MemChunk& chunk, std::shared_ptr<data::JavaClass>& data)
 {
     unsigned int chunkSize = chunk.size();
 
@@ -210,7 +210,7 @@ void JavaClass::doParse(const MemChunk& chunk, Shared<data::JavaClass>& data)
     mSrcColorizer.addHighlight(8, processed - 8, QColor(128, 255, 0, 64));
     mSrcColorizer.addSeparation(processed, 2);
 
-    data = makeShared<data::JavaClass>(chunk, mSrcColorizer, constantPool, properties);
+    data = std::make_shared<data::JavaClass>(chunk, mSrcColorizer, constantPool, properties);
 }
 
 }

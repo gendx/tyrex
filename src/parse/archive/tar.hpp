@@ -31,8 +31,8 @@ public:
     Tar();
 
 private:
-    void doParse(const MemChunk& chunk, Shared<data::Archive>& data);
-    void onError(const MemChunk& chunk, Shared<data::Archive>& data);
+    void doParse(const MemChunk& chunk, std::shared_ptr<data::Archive>& data);
+    void onError(const MemChunk& chunk, std::shared_ptr<data::Archive>& data);
 
     data::Colorizer mSrcColorizer;
     std::vector<data::File> mExtractedFiles;

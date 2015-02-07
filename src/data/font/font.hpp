@@ -29,13 +29,13 @@ namespace data {
 class Font : public Data
 {
 public:
-    Font(const MemChunk& srcChunk, const Colorizer& srcColorizer, const QList<Shared<Path> >& glyphs, const Table& properties);
+    Font(const MemChunk& srcChunk, const Colorizer& srcColorizer, const QList<std::shared_ptr<Path> >& glyphs, const Table& properties);
 
     void appendToTree(graphic::TreeNodeModel& tree) const;
 
 private:
     ByteSequence mSource;
-    QList<Shared<Path> > mGlyphs;
+    QList<std::shared_ptr<Path> > mGlyphs;
     Table mProperties;
 };
 

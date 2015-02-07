@@ -25,7 +25,7 @@
 namespace tyrex {
 namespace graphic {
 
-SideTree::SideTree(Shared<TreeNodeModel> model, const Shared<View>& firstView) :
+SideTree::SideTree(std::shared_ptr<TreeNodeModel> model, const std::shared_ptr<View>& firstView) :
     mLayout(new QVBoxLayout(this)),
     mSplitter(new QSplitter),
     mTreeView(new QTreeView),
@@ -56,7 +56,7 @@ SideTree::SideTree(Shared<TreeNodeModel> model, const Shared<View>& firstView) :
 }
 
 
-Shared<View> SideTree::currentView()
+std::shared_ptr<View> SideTree::currentView()
 {
     return mCurrentView;
 }
@@ -80,7 +80,7 @@ bool SideTree::eventFilter(QObject* obj, QEvent* event)
 void SideTree::selected(const QModelIndex& index)
 {
     QStandardItem* item = mItemModel->itemFromIndex(index);
-    Shared<View> view = mModel.viewForItem(item);
+    std::shared_ptr<View> view = mModel.viewForItem(item);
 
     if (view)
     {

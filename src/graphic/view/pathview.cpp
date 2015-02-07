@@ -25,7 +25,7 @@
 namespace tyrex {
 namespace graphic {
 
-PathView::PathView(Shared<data::Path> path, QWidget* parent) :
+PathView::PathView(std::shared_ptr<data::Path> path, QWidget* parent) :
     View(parent),
     mLayout(new QHBoxLayout(this)),
     mSplitter(new QSplitter),
@@ -68,7 +68,7 @@ PathWidget::PathWidget() :
 {
 }
 
-PathWidget::PathWidget(Shared<data::Path> path, QWidget* parent) :
+PathWidget::PathWidget(std::shared_ptr<data::Path> path, QWidget* parent) :
     QWidget(parent),
     mPath(path),
     mTranslate(0, 0),
@@ -78,7 +78,7 @@ PathWidget::PathWidget(Shared<data::Path> path, QWidget* parent) :
 }
 
 
-void PathWidget::setPath(Shared<data::Path> path)
+void PathWidget::setPath(std::shared_ptr<data::Path> path)
 {
     mPath = path;
     this->update();

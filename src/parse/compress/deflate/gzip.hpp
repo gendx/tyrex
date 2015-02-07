@@ -30,8 +30,8 @@ public:
     Gzip();
 
 private:
-    void doParse(const MemChunk& chunk, Shared<data::Compress>& data);
-    void onError(const MemChunk& chunk, Shared<data::Compress>& data);
+    void doParse(const MemChunk& chunk, std::shared_ptr<data::Compress>& data);
+    void onError(const MemChunk& chunk, std::shared_ptr<data::Compress>& data);
 
     static unsigned char mMagic[2];
 

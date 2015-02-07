@@ -25,7 +25,7 @@
 namespace tyrex {
 namespace graphic {
 
-ImageView::ImageView(Shared<data::Pixmap> pixmap, QWidget* parent) :
+ImageView::ImageView(std::shared_ptr<data::Pixmap> pixmap, QWidget* parent) :
     View(parent),
     mLayout(new QHBoxLayout(this)),
     mScrollArea(new QScrollArea),
@@ -48,7 +48,7 @@ void ImageView::wheelEvent(QWheelEvent* event)
 }
 
 
-ImageWidget::ImageWidget(Shared<data::Pixmap> pixmap, QWidget* parent) :
+ImageWidget::ImageWidget(std::shared_ptr<data::Pixmap> pixmap, QWidget* parent) :
     QWidget(parent),
     mPixmap(pixmap),
     mQImage(mPixmap->width(), mPixmap->height(), QImage::Format_ARGB32),

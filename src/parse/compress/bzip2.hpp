@@ -34,8 +34,8 @@ public:
     Bzip2();
 
 private:
-    void doParse(const MemChunk& chunk, Shared<data::Compress>& data);
-    void onError(const MemChunk& chunk, Shared<data::Compress>& data);
+    void doParse(const MemChunk& chunk, std::shared_ptr<data::Compress>& data);
+    void onError(const MemChunk& chunk, std::shared_ptr<data::Compress>& data);
 
     bool parseBlock(ForwardStream& stream, unsigned int blockSize100k);
     void appendRepeats(ForwardStream& stream, Chunk<unsigned int>& blockUint, const std::vector<unsigned char>& usedMap, const MoveToFront& mtf, std::vector<unsigned int>& unzftab, unsigned int repeats);

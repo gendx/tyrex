@@ -28,12 +28,12 @@ Zip::Zip()
 }
 
 
-void Zip::onError(const MemChunk& chunk, Shared<data::Archive>& data)
+void Zip::onError(const MemChunk& chunk, std::shared_ptr<data::Archive>& data)
 {
-    data = makeShared<data::Archive>(chunk, mSrcColorizer, data::FileInfoFilter::mZipFilter, mExtractedFiles);
+    data = std::make_shared<data::Archive>(chunk, mSrcColorizer, data::FileInfoFilter::mZipFilter, mExtractedFiles);
 }
 
-void Zip::doParse(const MemChunk& chunk, Shared<data::Archive>& data)
+void Zip::doParse(const MemChunk& chunk, std::shared_ptr<data::Archive>& data)
 {
     unsigned int size = chunk.size();
     unsigned int pos = this->findCentralDirectory(chunk);
@@ -79,7 +79,7 @@ void Zip::doParse(const MemChunk& chunk, Shared<data::Archive>& data)
         mExtractedFiles.push_back(file);
     }
 
-    data = makeShared<data::Archive>(chunk, mSrcColorizer, data::FileInfoFilter::mZipFilter, mExtractedFiles);
+    data = std::make_shared<data::Archive>(chunk, mSrcColorizer, data::FileInfoFilter::mZipFilter, mExtractedFiles);
 }
 
 unsigned int Zip::findCentralDirectory(const MemChunk& chunk)

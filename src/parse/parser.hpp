@@ -19,8 +19,8 @@
 #ifndef TYREX_PARSER_HPP
 #define TYREX_PARSER_HPP
 
+#include <memory>
 #include "misc/memchunk.hpp"
-#include "misc/shared.hpp"
 
 namespace tyrex {
 namespace parse {
@@ -37,19 +37,17 @@ protected:
 
 
 template <typename outputT>
-class MemchunkParser : public Parser<MemChunk, outputT>
-{
-};
+using MemchunkParser = Parser<MemChunk, outputT>;
 
 
 template <typename dataT>
-class DataParser : public MemchunkParser<Shared<dataT> >
+class DataParser : public MemchunkParser<std::shared_ptr<dataT> >
 {
 public:
-    bool parse(const MemChunk& in, Shared<dataT>& out);
+    bool parse(const MemChunk& in, std::shared_ptr<dataT>& out);
 
 protected:
-    virtual void onError(const MemChunk& in, Shared<dataT>& out) = 0;
+    virtual void onError(const MemChunk& in, std::shared_ptr<dataT>& out) = 0;
 };
 
 }

@@ -29,14 +29,14 @@ namespace data {
 class Image : public Data
 {
 public:
-    Image(const MemChunk& srcChunk, const Colorizer& srcColorizer, const Shared<Pixmap>& pixmap, const Table& properties);
+    Image(const MemChunk& srcChunk, const Colorizer& srcColorizer, const std::shared_ptr<Pixmap>& pixmap, const Table& properties);
 
     void appendToTree(graphic::TreeNodeModel& tree) const;
-    Shared<graphic::View> view() const;
+    std::shared_ptr<graphic::View> view() const;
 
 private:
     ByteSequence mSource;
-    Shared<Pixmap> mPixmap;
+    std::shared_ptr<Pixmap> mPixmap;
     Table mProperties;
 };
 

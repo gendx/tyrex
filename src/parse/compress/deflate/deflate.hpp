@@ -35,8 +35,8 @@ public:
     inline unsigned int end() const;
 
 private:
-    void doParse(const MemChunk& chunk, Shared<data::Compress>& data);
-    void onError(const MemChunk& chunk, Shared<data::Compress>& data);
+    void doParse(const MemChunk& chunk, std::shared_ptr<data::Compress>& data);
+    void onError(const MemChunk& chunk, std::shared_ptr<data::Compress>& data);
 
     void parseUncompressed(DeflateStream& stream);
     void parseFixedHuffman(DeflateStream& stream);

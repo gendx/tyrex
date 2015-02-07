@@ -20,10 +20,10 @@
 #define TYREX_PATHVIEW_HPP
 
 #include "view.hpp"
-#include "misc/shared.hpp"
 #include "data/font/path.hpp"
 #include "tableview.hpp"
 #include <QSplitter>
+#include <memory>
 
 namespace tyrex {
 namespace graphic {
@@ -32,9 +32,9 @@ class PathWidget : public QWidget
 {
 public:
     PathWidget();
-    PathWidget(Shared<data::Path> path, QWidget* parent = 0);
+    PathWidget(std::shared_ptr<data::Path> path, QWidget* parent = 0);
 
-    void setPath(Shared<data::Path> path);
+    void setPath(std::shared_ptr<data::Path> path);
 
 private:
     void wheelEvent(QWheelEvent* event);
@@ -50,7 +50,7 @@ private:
     QPointF transform(QPointF p) const;
     QPointF invert(QPointF p) const;
 
-    Shared<data::Path> mPath;
+    std::shared_ptr<data::Path> mPath;
     data::Path::Point mTranslate;
     int mZoom;
     bool mMousePress;
@@ -60,7 +60,7 @@ private:
 class PathView : public View
 {
 public:
-    PathView(Shared<data::Path> path, QWidget* parent = 0);
+    PathView(std::shared_ptr<data::Path> path, QWidget* parent = 0);
 
 private:
     QHBoxLayout* mLayout;

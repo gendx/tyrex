@@ -33,13 +33,13 @@ class FontView : public View
     Q_OBJECT
 
 public:
-    FontView(QList<Shared<data::Path> > path, QWidget* parent = 0);
+    FontView(QList<std::shared_ptr<data::Path> > path, QWidget* parent = 0);
 
 private slots:
     void selected(QModelIndex index);
 
 private:
-    static QList<QStringList> pointsOfPath(const Shared<data::Path>& path);
+    static QList<QStringList> pointsOfPath(const std::shared_ptr<data::Path>& path);
 
     QHBoxLayout* mLayout;
     QSplitter* mSplitter;
@@ -48,7 +48,7 @@ private:
     PathWidget* mPathWidget;
     TableView* mTable;
 
-    QList<Shared<data::Path> > mPath;
+    QList<std::shared_ptr<data::Path> > mPath;
 };
 
 }

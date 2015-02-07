@@ -42,21 +42,21 @@ Document::Document(QWidget* parent) :
 }
 
 
-Shared<data::Data> Document::parse(MemChunk source, QWidget* parent)
+std::shared_ptr<data::Data> Document::parse(MemChunk source, QWidget* parent)
 {
     Document p(parent);
-    Shared<data::Data> data;
+    std::shared_ptr<data::Data> data;
     p.parse(source, data);
     return data;
 }
 
 
-void Document::onError(const MemChunk& chunk, Shared<data::Data>& data)
+void Document::onError(const MemChunk& chunk, std::shared_ptr<data::Data>& data)
 {
-    data = makeShared<data::Data, data::ByteSequence>(chunk);
+    data = std::make_shared<data::ByteSequence>(chunk);
 }
 
-void Document::doParse(const MemChunk& chunk, Shared<data::Data>& data)
+void Document::doParse(const MemChunk& chunk, std::shared_ptr<data::Data>& data)
 {
     static const TypeToParser typeToParser {
         {"archive/tar", &Document::parseArchiveTar},
@@ -83,7 +83,7 @@ void Document::doParse(const MemChunk& chunk, Shared<data::Data>& data)
     if (found != typeToParser.end() && (this->*found->second)(chunk, data))
         return;
 
-    data = makeShared<data::Data, data::ByteSequence>(chunk);
+    data = std::make_shared<data::ByteSequence>(chunk);
 }
 
 
@@ -117,10 +117,10 @@ QStringList Document::findTypes(const MemChunk& chunk)
 }
 
 
-bool Document::parseArchiveTar(const MemChunk& chunk, Shared<data::Data>& data)
+bool Document::parseArchiveTar(const MemChunk& chunk, std::shared_ptr<data::Data>& data)
 {
     Tar tar;
-    Shared<data::Archive> parsedData;
+    std::shared_ptr<data::Archive> parsedData;
 
     if (tar.parse(chunk, parsedData))
     {
@@ -131,10 +131,10 @@ bool Document::parseArchiveTar(const MemChunk& chunk, Shared<data::Data>& data)
     return false;
 }
 
-bool Document::parseArchiveZip(const MemChunk& chunk, Shared<data::Data>& data)
+bool Document::parseArchiveZip(const MemChunk& chunk, std::shared_ptr<data::Data>& data)
 {
     Zip zip;
-    Shared<data::Archive> parsedData;
+    std::shared_ptr<data::Archive> parsedData;
 
     if (zip.parse(chunk, parsedData))
     {
@@ -145,10 +145,10 @@ bool Document::parseArchiveZip(const MemChunk& chunk, Shared<data::Data>& data)
     return false;
 }
 
-bool Document::parseCompressBzip2(const MemChunk& chunk, Shared<data::Data>& data)
+bool Document::parseCompressBzip2(const MemChunk& chunk, std::shared_ptr<data::Data>& data)
 {
     Bzip2 bzip2;
-    Shared<data::Compress> parsedData;
+    std::shared_ptr<data::Compress> parsedData;
 
     if (bzip2.parse(chunk, parsedData))
     {
@@ -159,13 +159,13 @@ bool Document::parseCompressBzip2(const MemChunk& chunk, Shared<data::Data>& dat
     return false;
 }
 
-bool Document::parseCompressDeflate(const MemChunk& chunk, Shared<data::Data>& data)
+bool Document::parseCompressDeflate(const MemChunk& chunk, std::shared_ptr<data::Data>& data)
 {
     unsigned int window;
     if (graphic::InputDialog::getUint(window, "Size of decompression window", mParent))
     {
         Deflate deflate(window);
-        Shared<data::Compress> parsedData;
+        std::shared_ptr<data::Compress> parsedData;
 
         if (deflate.parse(chunk, parsedData))
         {
@@ -177,10 +177,10 @@ bool Document::parseCompressDeflate(const MemChunk& chunk, Shared<data::Data>& d
     return false;
 }
 
-bool Document::parseCompressGzip(const MemChunk& chunk, Shared<data::Data>& data)
+bool Document::parseCompressGzip(const MemChunk& chunk, std::shared_ptr<data::Data>& data)
 {
     Gzip gzip;
-    Shared<data::Compress> parsedData;
+    std::shared_ptr<data::Compress> parsedData;
 
     if (gzip.parse(chunk, parsedData))
     {
@@ -191,10 +191,10 @@ bool Document::parseCompressGzip(const MemChunk& chunk, Shared<data::Data>& data
     return false;
 }
 
-bool Document::parseCompressLzma(const MemChunk& chunk, Shared<data::Data>& data)
+bool Document::parseCompressLzma(const MemChunk& chunk, std::shared_ptr<data::Data>& data)
 {
     Lzma lzma;
-    Shared<data::Compress> parsedData;
+    std::shared_ptr<data::Compress> parsedData;
 
     if (lzma.parse(chunk, parsedData))
     {
@@ -205,10 +205,10 @@ bool Document::parseCompressLzma(const MemChunk& chunk, Shared<data::Data>& data
     return false;
 }
 
-bool Document::parseCompressLzma2(const MemChunk& chunk, Shared<data::Data>& data)
+bool Document::parseCompressLzma2(const MemChunk& chunk, std::shared_ptr<data::Data>& data)
 {
     Lzma2 lzma2;
-    Shared<data::Compress> parsedData;
+    std::shared_ptr<data::Compress> parsedData;
 
     if (lzma2.parse(chunk, parsedData))
     {
@@ -219,10 +219,10 @@ bool Document::parseCompressLzma2(const MemChunk& chunk, Shared<data::Data>& dat
     return false;
 }
 
-bool Document::parseCompressZlib(const MemChunk& chunk, Shared<data::Data>& data)
+bool Document::parseCompressZlib(const MemChunk& chunk, std::shared_ptr<data::Data>& data)
 {
     Zlib zlib;
-    Shared<data::Compress> parsedData;
+    std::shared_ptr<data::Compress> parsedData;
 
     if (zlib.parse(chunk, parsedData))
     {
@@ -233,10 +233,10 @@ bool Document::parseCompressZlib(const MemChunk& chunk, Shared<data::Data>& data
     return false;
 }
 
-bool Document::parseFontTruetype(const MemChunk& chunk, Shared<data::Data>& data)
+bool Document::parseFontTruetype(const MemChunk& chunk, std::shared_ptr<data::Data>& data)
 {
     Truetype ttf;
-    Shared<data::Font> parsedData;
+    std::shared_ptr<data::Font> parsedData;
 
     if (ttf.parse(chunk, parsedData))
     {
@@ -247,10 +247,10 @@ bool Document::parseFontTruetype(const MemChunk& chunk, Shared<data::Data>& data
     return false;
 }
 
-bool Document::parseImagePng(const MemChunk& chunk, Shared<data::Data>& data)
+bool Document::parseImagePng(const MemChunk& chunk, std::shared_ptr<data::Data>& data)
 {
     Png png;
-    Shared<data::Image> parsedData;
+    std::shared_ptr<data::Image> parsedData;
 
     if (png.parse(chunk, parsedData))
     {
@@ -261,10 +261,10 @@ bool Document::parseImagePng(const MemChunk& chunk, Shared<data::Data>& data)
     return false;
 }
 
-bool Document::parseProgramElf32(const MemChunk& chunk, Shared<data::Data>& data)
+bool Document::parseProgramElf32(const MemChunk& chunk, std::shared_ptr<data::Data>& data)
 {
     Elf32 elf32;
-    Shared<data::Elf> parsedData;
+    std::shared_ptr<data::Elf> parsedData;
 
     if (elf32.parse(chunk, parsedData))
     {
@@ -275,10 +275,10 @@ bool Document::parseProgramElf32(const MemChunk& chunk, Shared<data::Data>& data
     return false;
 }
 
-bool Document::parseProgramJava(const MemChunk& chunk, Shared<data::Data>& data)
+bool Document::parseProgramJava(const MemChunk& chunk, std::shared_ptr<data::Data>& data)
 {
     JavaClass javaClass;
-    Shared<data::JavaClass> parsedData;
+    std::shared_ptr<data::JavaClass> parsedData;
 
     if (javaClass.parse(chunk, parsedData))
     {

@@ -28,31 +28,31 @@ namespace tyrex {
 namespace graphic {
 
 // A leaf of the tree is a view associated with a title.
-typedef TreeLeaf<Shared<View> > TreeLeafModel;
+typedef TreeLeaf<std::shared_ptr<View> > TreeLeafModel;
 
 // A node of the tree is labelled with a title.
-class TreeNodeModel : public TreeNode<Shared<View>, TreeNodeModel>
+class TreeNodeModel : public TreeNode<std::shared_ptr<View>, TreeNodeModel>
 {
 public:
     inline TreeNodeModel(QString title) :
-        TreeNode<Shared<View>, TreeNodeModel>(title) {}
+        TreeNode<std::shared_ptr<View>, TreeNodeModel>(title) {}
 
-    QStandardItem* makeTreeModel(QStandardItem* rootItem, QMap<QStandardItem*, Shared<View> >& itemToView, const Shared<View>& firstView, bool& firstViewFound) const;
+    QStandardItem* makeTreeModel(QStandardItem* rootItem, QMap<QStandardItem*, std::shared_ptr<View> >& itemToView, const std::shared_ptr<View>& firstView, bool& firstViewFound) const;
 };
 
 // A tree of views.
 class TreeModel
 {
 public:
-    TreeModel(Shared<TreeNodeModel> root, QStandardItemModel& model, const Shared<View>& firstView = Shared<View>());
+    TreeModel(std::shared_ptr<TreeNodeModel> root, QStandardItemModel& model, const std::shared_ptr<View>& firstView = std::shared_ptr<View>());
 
     inline QModelIndex firstItem() const;
-    Shared<View> viewForItem(QStandardItem* item) const;
+    std::shared_ptr<View> viewForItem(QStandardItem* item) const;
 
 private:
-    Shared<TreeNodeModel> mRoot;
+    std::shared_ptr<TreeNodeModel> mRoot;
     QModelIndex mFirstItem;
-    QMap<QStandardItem*, Shared<View> > mItemToView;
+    QMap<QStandardItem*, std::shared_ptr<View> > mItemToView;
 };
 
 inline QModelIndex TreeModel::firstItem() const

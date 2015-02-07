@@ -38,7 +38,7 @@ class Document : public QWidget
 public:
     Document(const MemChunk& chunk, bool& success, QWidget* parent);
 
-    Shared<View> currentView();
+    std::shared_ptr<View> currentView();
     bool hasMultipleViews();
 
     void split();
@@ -64,7 +64,7 @@ private:
 
     QString mPath;
     bool mUntitled;
-    Shared<data::Data> mData;
+    std::shared_ptr<data::Data> mData;
 
     QVBoxLayout* mLayout;
     QSplitter* mSplitter;

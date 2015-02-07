@@ -28,16 +28,16 @@ Data::~Data()
 }
 
 
-Shared<graphic::TreeNodeModel> Data::treeModel(QString title) const
+std::shared_ptr<graphic::TreeNodeModel> Data::treeModel(QString title) const
 {
-    Shared<graphic::TreeNodeModel> result = makeShared<graphic::TreeNodeModel>(title);
+    std::shared_ptr<graphic::TreeNodeModel> result = std::make_shared<graphic::TreeNodeModel>(title);
     this->appendToTree(*result);
     return result;
 }
 
-Shared<graphic::View> Data::firstView() const
+std::shared_ptr<graphic::View> Data::firstView() const
 {
-    Shared<graphic::View> result(mFirstView);
+    std::shared_ptr<graphic::View> result(mFirstView);
     mFirstView.reset();
     return result;
 }

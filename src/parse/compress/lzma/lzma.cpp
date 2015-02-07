@@ -29,12 +29,12 @@ Lzma::Lzma() :
 }
 
 
-void Lzma::onError(const MemChunk& chunk, Shared<data::Compress>& data)
+void Lzma::onError(const MemChunk& chunk, std::shared_ptr<data::Compress>& data)
 {
-    data = makeShared<data::Compress>(chunk, mDecompChunk, mSrcColorizer, mDecompColorizer);
+    data = std::make_shared<data::Compress>(chunk, mDecompChunk, mSrcColorizer, mDecompColorizer);
 }
 
-void Lzma::doParse(const MemChunk& chunk, Shared<data::Compress>& data)
+void Lzma::doParse(const MemChunk& chunk, std::shared_ptr<data::Compress>& data)
 {
     unsigned int size = chunk.size();
 
@@ -89,7 +89,7 @@ void Lzma::doParse(const MemChunk& chunk, Shared<data::Compress>& data)
     if (size != mEnd)
         Except::reportError(mEnd, "lzma", "expected end of data");
 
-    data = makeShared<data::Compress>(chunk, mDecompChunk, mSrcColorizer, mDecompColorizer);
+    data = std::make_shared<data::Compress>(chunk, mDecompChunk, mSrcColorizer, mDecompColorizer);
 }
 
 }

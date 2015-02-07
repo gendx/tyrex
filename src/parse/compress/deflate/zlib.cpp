@@ -29,12 +29,12 @@ Zlib::Zlib()
 }
 
 
-void Zlib::onError(const MemChunk& chunk, Shared<data::Compress>& data)
+void Zlib::onError(const MemChunk& chunk, std::shared_ptr<data::Compress>& data)
 {
-    data = makeShared<data::Compress>(chunk, mDecompChunk, mSrcColorizer, mDecompColorizer);
+    data = std::make_shared<data::Compress>(chunk, mDecompChunk, mSrcColorizer, mDecompColorizer);
 }
 
-void Zlib::doParse(const MemChunk& chunk, Shared<data::Compress>& data)
+void Zlib::doParse(const MemChunk& chunk, std::shared_ptr<data::Compress>& data)
 {
     unsigned int size = chunk.size();
 
@@ -63,7 +63,7 @@ void Zlib::doParse(const MemChunk& chunk, Shared<data::Compress>& data)
 
     unsigned int windowSize = 1 << (info + 8);
     Deflate deflate(windowSize);
-    Shared<data::Compress> deflateData;
+    std::shared_ptr<data::Compress> deflateData;
 
     if (!deflate.parse(chunk.subChunk(2, chunk.size() - 2), deflateData))
         Except::reportError(size, "zlib, deflate", "error parsing deflate stream");
@@ -87,7 +87,7 @@ void Zlib::doParse(const MemChunk& chunk, Shared<data::Compress>& data)
     if (size != processed)
         Except::reportError(processed, "zlib", "expected end of data");
 
-    data = makeShared<data::Compress>(chunk, mDecompChunk, mSrcColorizer, mDecompColorizer);
+    data = std::make_shared<data::Compress>(chunk, mDecompChunk, mSrcColorizer, mDecompColorizer);
 }
 
 }

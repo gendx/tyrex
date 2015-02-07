@@ -188,7 +188,7 @@ void ZipFile::doParse(const MemChunk& chunk, data::File& file)
         fileInfo.mInfos[data::FileInfo::compressionMethod] = "Deflate";
         {
             Deflate deflate(0x8000);
-            Shared<data::Compress> deflateData;
+            std::shared_ptr<data::Compress> deflateData;
 
             if (!deflate.parse(compressedChunk, deflateData))
                 Except::reportError(size, "zip file", "error parsing deflate stream");

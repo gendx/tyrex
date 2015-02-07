@@ -38,7 +38,7 @@ public:
     void write(std::ostream& ofs) const;
 
     void appendToTree(graphic::TreeNodeModel& tree) const;
-    Shared<graphic::View> view() const;
+    std::shared_ptr<graphic::View> view() const;
 
     void addHighlight(unsigned int begin, unsigned int end, QColor color);
     void addSeparation(unsigned int pos, unsigned int size);

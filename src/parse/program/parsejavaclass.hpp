@@ -31,8 +31,8 @@ public:
     JavaClass();
 
 private:
-    void doParse(const MemChunk& chunk, Shared<data::JavaClass>& data);
-    void onError(const MemChunk& chunk, Shared<data::JavaClass>& data);
+    void doParse(const MemChunk& chunk, std::shared_ptr<data::JavaClass>& data);
+    void onError(const MemChunk& chunk, std::shared_ptr<data::JavaClass>& data);
 
     static unsigned char mMagic[4];
 

@@ -32,8 +32,8 @@ public:
     inline unsigned int end() const;
 
 private:
-    void doParse(const MemChunk& chunk, Shared<data::Compress>& data);
-    void onError(const MemChunk& chunk, Shared<data::Compress>& data);
+    void doParse(const MemChunk& chunk, std::shared_ptr<data::Compress>& data);
+    void onError(const MemChunk& chunk, std::shared_ptr<data::Compress>& data);
 
     void parseUncompressed(const MemChunk& chunk, unsigned int pos, unsigned int len, bool resetDict);
     void parseLzma(const MemChunk& chunk, unsigned int pos, unsigned int unpackSize, unsigned int packSize, bool resetDict, bool resetState, bool newProp, unsigned int lc, unsigned int lp, unsigned int pb);
@@ -42,7 +42,7 @@ private:
     unsigned int mVirtualDictStart;
     unsigned int mEnd;
 
-    Shared<LzmaDecoder> mLzmaDecoder;
+    std::shared_ptr<LzmaDecoder> mLzmaDecoder;
 };
 
 inline unsigned int Lzma2::end() const

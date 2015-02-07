@@ -62,7 +62,6 @@ HEADERS += \
     misc/hash/hash.hpp \
     misc/hash/sha256.hpp \
     misc/memchunk.hpp \
-    misc/shared.hpp \
     misc/tree.hpp \
     misc/tree.tpl \
     misc/util.hpp \

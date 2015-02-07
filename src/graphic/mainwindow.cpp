@@ -319,10 +319,10 @@ void MainWindow::updateActions()
     mPreviousAction->setEnabled(hasDocument);
     mSeparatorAction->setVisible(hasDocument);
 
-    this->updateViewActions(hasDocument ? doc->currentView() : Shared<View>());
+    this->updateViewActions(hasDocument ? doc->currentView() : std::shared_ptr<View>());
 }
 
-void MainWindow::updateViewActions(Shared<View> currentView)
+void MainWindow::updateViewActions(std::shared_ptr<View> currentView)
 {
     if (mCurrentView == currentView)
         return;

@@ -19,10 +19,10 @@
 #ifndef TYREX_DATA_HPP
 #define TYREX_DATA_HPP
 
-#include "misc/shared.hpp"
 #include "graphic/view/view.hpp"
 #include "graphic/treemodel.hpp"
 #include <QString>
+#include <memory>
 
 namespace tyrex {
 namespace data {
@@ -33,12 +33,12 @@ public:
     virtual ~Data();
 
     virtual void appendToTree(graphic::TreeNodeModel& tree) const = 0;
-    Shared<graphic::TreeNodeModel> treeModel(QString title) const;
+    std::shared_ptr<graphic::TreeNodeModel> treeModel(QString title) const;
 
-    Shared<graphic::View> firstView() const;
+    std::shared_ptr<graphic::View> firstView() const;
 
 protected:
-    mutable Shared<graphic::View> mFirstView;
+    mutable std::shared_ptr<graphic::View> mFirstView;
 };
 
 }

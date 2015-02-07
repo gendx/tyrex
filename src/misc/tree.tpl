@@ -30,7 +30,7 @@ void TreeNode<LeafT, NodeT>::appendLeaf(QString title, const LeafT& content)
 }
 
 template <typename LeafT, typename NodeT>
-void TreeNode<LeafT, NodeT>::appendTree(Shared<NodeT> tree)
+void TreeNode<LeafT, NodeT>::appendTree(std::shared_ptr<NodeT> tree)
 {
     mSubtrees.append(tree);
 }

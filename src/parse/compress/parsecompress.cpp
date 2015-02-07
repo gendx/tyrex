@@ -22,7 +22,7 @@ namespace tyrex {
 namespace parse {
 
 Compress::Compress() :
-    mDecompColorizer(makeShared<data::AbstractHighlighter, data::Highlighter>(), makeShared<data::AbstractSeparater, data::ArraySeparater>())
+    mDecompColorizer(std::make_shared<data::Highlighter>(), std::make_shared<data::ArraySeparater>())
 {
 }
 

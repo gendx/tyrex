@@ -29,12 +29,12 @@ Lzw::Lzw(bool earlyChange) :
 }
 
 
-void Lzw::onError(const MemChunk& chunk, Shared<data::Compress>& data)
+void Lzw::onError(const MemChunk& chunk, std::shared_ptr<data::Compress>& data)
 {
-    data = makeShared<data::Compress>(chunk, mDecompChunk, mSrcColorizer, mDecompColorizer);
+    data = std::make_shared<data::Compress>(chunk, mDecompChunk, mSrcColorizer, mDecompColorizer);
 }
 
-void Lzw::doParse(const MemChunk& chunk, Shared<data::Compress>& data)
+void Lzw::doParse(const MemChunk& chunk, std::shared_ptr<data::Compress>& data)
 {
     std::vector<std::pair<unsigned int, unsigned int> > dict;
     ForwardStream stream(chunk);
@@ -81,7 +81,7 @@ void Lzw::doParse(const MemChunk& chunk, Shared<data::Compress>& data)
         }
     }
 
-    data = makeShared<data::Compress>(chunk, mDecompChunk, mSrcColorizer, mDecompColorizer);
+    data = std::make_shared<data::Compress>(chunk, mDecompChunk, mSrcColorizer, mDecompColorizer);
 }
 
 }
