@@ -23,7 +23,7 @@ archive | **tar** | basic features
 image | **png** | some interlaced and bit depth are missing
 font | **freetype** | basic features only
 program | **java** | extraction of symbols
-program | **elf** | 32 bits, basic features
+program | **elf** | basic features
 
 ### Coming soon
 

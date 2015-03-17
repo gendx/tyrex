@@ -16,33 +16,47 @@
     along with this program.  If not, see http://www.gnu.org/licenses/gpl-3.0.txt
 */
 
-#ifndef TYREX_PARSE_ELF32HEADER_HPP
-#define TYREX_PARSE_ELF32HEADER_HPP
+#ifndef TYREX_PARSE_ELF_TRAITS_HPP
+#define TYREX_PARSE_ELF_TRAITS_HPP
 
+#include "elfheader.hpp"
 #include "external/elf.h"
-#include "misc/memchunk.hpp"
-#include "data/table.hpp"
 
 namespace tyrex {
 namespace parse {
 
-class Elf32Header
+template <size_t S>
+class ElfTraits
 {
-public:
-    inline Elf32Header();
-    Elf32Header(const MemChunk& chunk, data::Table& properties);
-    inline const Elf32_Ehdr& header() const;
-
-private:
-    Elf32_Ehdr mHeader;
 };
 
-inline Elf32Header::Elf32Header()
-    {}
-inline const Elf32_Ehdr& Elf32Header::header() const
-    {return mHeader;}
+template <>
+class ElfTraits<32>
+{
+public:
+    typedef Elf32Header header_type;
+    typedef Elf32_Phdr phdr_type;
+    typedef Elf32_Shdr shdr_type;
+
+    static unsigned char mMagic[5];
+    static constexpr unsigned int mHeaderSize = 52;
+    static constexpr size_t mBits = 32;
+};
+
+template <>
+class ElfTraits<64>
+{
+public:
+    typedef Elf64Header header_type;
+    typedef Elf64_Phdr phdr_type;
+    typedef Elf64_Shdr shdr_type;
+
+    static unsigned char mMagic[5];
+    static constexpr unsigned int mHeaderSize = 64;
+    static constexpr size_t mBits = 64;
+};
 
 }
 }
 
-#endif // TYREX_PARSE_ELF32HEADER_HPP
+#endif // TYREX_PARSE_ELF_TRAITS_HPP

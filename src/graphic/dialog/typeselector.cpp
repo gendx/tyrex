@@ -34,6 +34,7 @@ const std::vector<QString> TypeSelector::mTypes {
     "font/truetype",
     "image/png",
     "program/elf32",
+    "program/elf64",
     "program/java"
 };
 

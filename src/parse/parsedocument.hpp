@@ -53,6 +53,7 @@ private:
     bool parseFontTruetype(const MemChunk& chunk, std::shared_ptr<data::Data>& data);
     bool parseImagePng(const MemChunk& chunk, std::shared_ptr<data::Data>& data);
     bool parseProgramElf32(const MemChunk& chunk, std::shared_ptr<data::Data>& data);
+    bool parseProgramElf64(const MemChunk& chunk, std::shared_ptr<data::Data>& data);
     bool parseProgramJava(const MemChunk& chunk, std::shared_ptr<data::Data>& data);
 
     QWidget* mParent;

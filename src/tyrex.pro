@@ -93,8 +93,11 @@ HEADERS += \
     parse/parseexception.hpp \
     parse/parser.hpp \
     parse/parser.tpl \
-    parse/program/elf32.hpp \
-    parse/program/elf32header.hpp \
+    parse/program/elfheader.hpp \
+    parse/program/elftraits.hpp \
+    parse/program/elftraits.tpl \
+    parse/program/parseelf.hpp \
+    parse/program/parseelf.tpl \
     parse/program/parsejavaclass.hpp \
     platform-specific/platform-specific.hpp \
 
@@ -164,8 +167,8 @@ SOURCES += \
     parse/image/png.cpp \
     parse/parsedocument.cpp \
     parse/parseexception.cpp \
-    parse/program/elf32.cpp \
-    parse/program/elf32header.cpp \
+    parse/program/elfheader.cpp \
+    parse/program/parseelf.cpp \
     parse/program/parsejavaclass.cpp \
 
 unix:{

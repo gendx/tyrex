@@ -16,34 +16,18 @@
     along with this program.  If not, see http://www.gnu.org/licenses/gpl-3.0.txt
 */
 
-#ifndef TYREX_PARSE_ELF32_HPP
-#define TYREX_PARSE_ELF32_HPP
+#ifndef TYREX_PARSE_ELF_TRAITS_TPL
+#define TYREX_PARSE_ELF_TRAITS_TPL
 
-#include "parse/parser.tpl"
-#include "data/elf.hpp"
-#include "external/elf.h"
+#include "elftraits.hpp"
 
 namespace tyrex {
 namespace parse {
 
-class Elf32 : public DataParser<data::Elf>
-{
-public:
-    Elf32();
-
-private:
-    void doParse(const MemChunk& chunk, std::shared_ptr<data::Elf>& data);
-    void onError(const MemChunk& chunk, std::shared_ptr<data::Elf>& data);
-
-    static QStringList parseSegmentHeader(const Elf32_Phdr& phdr);
-    static QStringList parseSectionHeader(const Elf32_Shdr& shdr);
-
-    static unsigned char mMagic[5];
-
-    data::Colorizer mSrcColorizer;
-};
+unsigned char ElfTraits<32>::mMagic[5] = {0x7F, 0x45, 0x4C, 0x46, 0x01};
+unsigned char ElfTraits<64>::mMagic[5] = {0x7F, 0x45, 0x4C, 0x46, 0x02};
 
 }
 }
 
-#endif // TYREX_PARSE_ELF32_HPP
+#endif // TYREX_PARSE_ELF_TRAITS_TPL

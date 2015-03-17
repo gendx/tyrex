@@ -30,7 +30,7 @@
 #include "parse/compress/lzma/lzma2.hpp"
 #include "parse/font/truetype.hpp"
 #include "parse/image/png.hpp"
-#include "parse/program/elf32.hpp"
+#include "parse/program/parseelf.tpl"
 #include "parse/program/parsejavaclass.hpp"
 
 namespace tyrex {
@@ -70,6 +70,7 @@ void Document::doParse(const MemChunk& chunk, std::shared_ptr<data::Data>& data)
         {"font/truetype", &Document::parseFontTruetype},
         {"image/png", &Document::parseImagePng},
         {"program/elf32", &Document::parseProgramElf32},
+        {"program/elf64", &Document::parseProgramElf64},
         {"program/java", &Document::parseProgramJava}
     };
 
@@ -94,7 +95,7 @@ QStringList Document::findTypes(const MemChunk& chunk)
         {{0x42, 0x5a, 0x68}, "compress/bzip2"},
         {{0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A}, "image/png"},
         {{0x7F, 0x45, 0x4C, 0x46, 0x01}, "program/elf32"},
-        //{{0x7F, 0x45, 0x4C, 0x46, 0x02}, "program/elf64"},
+        {{0x7F, 0x45, 0x4C, 0x46, 0x02}, "program/elf64"},
         {{0xCA, 0xFE, 0xBA, 0xBE}, "program/java"},
         {{0x00, 0x01, 0x00, 0x00}, "font/truetype"},
         {{0x74, 0x72, 0x75, 0x65}, "font/truetype"},
@@ -267,6 +268,20 @@ bool Document::parseProgramElf32(const MemChunk& chunk, std::shared_ptr<data::Da
     std::shared_ptr<data::Elf> parsedData;
 
     if (elf32.parse(chunk, parsedData))
+    {
+        data = parsedData;
+        return true;
+    }
+
+    return false;
+}
+
+bool Document::parseProgramElf64(const MemChunk& chunk, std::shared_ptr<data::Data>& data)
+{
+    Elf64 elf64;
+    std::shared_ptr<data::Elf> parsedData;
+
+    if (elf64.parse(chunk, parsedData))
     {
         data = parsedData;
         return true;
