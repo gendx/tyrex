@@ -38,8 +38,17 @@ TableView::TableView(const QStringList& header, const QList<QStringList>& conten
         mTreeWidget->addTopLevelItem(new QTreeWidgetItem(item));
 
     mTreeWidget->header()->setResizeMode(QHeaderView::ResizeToContents);
+
+    QObject::connect(mTreeWidget, SIGNAL(activated(QModelIndex)), this, SLOT(selected(QModelIndex)));
+    QObject::connect(mTreeWidget, SIGNAL(clicked(QModelIndex)), this, SLOT(selected(QModelIndex)));
 }
 
+
+void TableView::selected(QModelIndex index)
+{
+    int i = index.row();
+    emit selected(i);
+}
 
 void TableView::setContent(const QList<QStringList>& content)
 {

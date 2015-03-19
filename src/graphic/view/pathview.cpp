@@ -64,7 +64,8 @@ PathWidget::PathWidget() :
     mPath(std::make_shared<data::Path>()),
     mTranslate(0, 0),
     mZoom(0),
-    mMousePress(false)
+    mMousePress(false),
+    mCurrentPoint(-1)
 {
 }
 
@@ -73,7 +74,8 @@ PathWidget::PathWidget(std::shared_ptr<data::Path> path, QWidget* parent) :
     mPath(path),
     mTranslate(0, 0),
     mZoom(0),
-    mMousePress(false)
+    mMousePress(false),
+    mCurrentPoint(-1)
 {
 }
 
@@ -81,6 +83,12 @@ PathWidget::PathWidget(std::shared_ptr<data::Path> path, QWidget* parent) :
 void PathWidget::setPath(std::shared_ptr<data::Path> path)
 {
     mPath = path;
+    this->update();
+}
+
+void PathWidget::selectPoint(int i)
+{
+    mCurrentPoint = i;
     this->update();
 }
 
@@ -162,7 +170,7 @@ void PathWidget::paintEvent(QPaintEvent* event)
         {
         case 0:
             if (ctrl.size() == 0)
-               painterPath.lineTo(p);
+                painterPath.lineTo(p);
             else if (ctrl.size() == 1)
                 painterPath.quadTo(ctrl[0], p);
             else if (ctrl.size() == 2)
@@ -184,8 +192,11 @@ void PathWidget::paintEvent(QPaintEvent* event)
 
     painter.setRenderHint(QPainter::Antialiasing, false);
     QPen pen(Qt::black, 5);
-    for (const data::Path::PointInfo& pi : mPath->points())
+
+    const std::vector<data::Path::PointInfo>& points = mPath->points();
+    for (int i = 0 ; i < points.size() ; ++i)
     {
+        const data::Path::PointInfo& pi = points[i];
         QPointF p = this->transform(pi.p);
 
         switch (pi.flags)
@@ -200,6 +211,11 @@ void PathWidget::paintEvent(QPaintEvent* event)
         case 2:
             pen.setColor(Qt::red);
         }
+
+        if (i == mCurrentPoint)
+            pen.setWidth(10);
+        else
+            pen.setWidth(5);
 
         painter.setPen(pen);
         painter.drawPoint(p);

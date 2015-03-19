@@ -30,11 +30,16 @@ namespace graphic {
 
 class PathWidget : public QWidget
 {
+    Q_OBJECT
+
 public:
     PathWidget();
     PathWidget(std::shared_ptr<data::Path> path, QWidget* parent = 0);
 
     void setPath(std::shared_ptr<data::Path> path);
+
+public slots:
+    void selectPoint(int);
 
 private:
     void wheelEvent(QWheelEvent* event);
@@ -55,6 +60,8 @@ private:
     int mZoom;
     bool mMousePress;
     QPointF mMousePos;
+
+    int mCurrentPoint;
 };
 
 class PathView : public View

@@ -53,6 +53,7 @@ FontView::FontView(QList<std::shared_ptr<data::Path> > path, QWidget* parent) :
 
     QObject::connect(mListWidget, SIGNAL(activated(QModelIndex)), this, SLOT(selected(QModelIndex)));
     QObject::connect(mListWidget, SIGNAL(clicked(QModelIndex)), this, SLOT(selected(QModelIndex)));
+    QObject::connect(mTable, SIGNAL(selected(int)), mPathWidget, SLOT(selectPoint(int)));
 }
 
 
@@ -62,6 +63,7 @@ void FontView::selected(QModelIndex index)
 
     mPathWidget->setPath(mPath[i]);
     mTable->setContent(FontView::pointsOfPath(mPath[i]));
+    mPathWidget->selectPoint(-1);
 }
 
 QList<QStringList> FontView::pointsOfPath(const std::shared_ptr<data::Path>& path)

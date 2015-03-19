@@ -29,10 +29,18 @@ namespace graphic {
 
 class TableView : public View
 {
+    Q_OBJECT
+
 public:
     TableView(const QStringList& header, const QList<QStringList>& content, QWidget* parent = 0);
 
     void setContent(const QList<QStringList>& content);
+
+signals:
+    void selected(int);
+
+private slots:
+    void selected(QModelIndex index);
 
 private:
     QHBoxLayout* mLayout;
