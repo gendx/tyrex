@@ -23,9 +23,6 @@ namespace parse {
 
 HuffmanTree::HuffmanTree(const std::vector<unsigned int>& lengths, bool& check)
 {
-    // TODO: do check !
-    check = true;
-
     unsigned int maxLength = 0;
     for (unsigned int len : lengths)
         if (len > maxLength)
@@ -46,6 +43,10 @@ HuffmanTree::HuffmanTree(const std::vector<unsigned int>& lengths, bool& check)
         code = (code + count[bits-1]) << 1;
         nextCode.push_back(code);
     }
+
+    // Check tree.
+    code += count[maxLength];
+    check = (code == 1u << maxLength);
 
     std::vector<unsigned int> values(lengths.size(), 0);
     for (unsigned int n = 0 ; n < lengths.size() ; ++n)
