@@ -28,6 +28,7 @@
 #include "parse/compress/deflate/zlib.hpp"
 #include "parse/compress/lzma/lzma.hpp"
 #include "parse/compress/lzma/lzma2.hpp"
+#include "parse/compress/lzma/xz.hpp"
 #include "parse/font/truetype.hpp"
 #include "parse/image/png.hpp"
 #include "parse/program/parseelf.tpl"
@@ -66,6 +67,7 @@ void Document::doParse(const MemChunk& chunk, std::shared_ptr<data::Data>& data)
         {"compress/gzip", &Document::parseCompressGzip},
         {"compress/lzma", &Document::parseCompressLzma},
         {"compress/lzma2", &Document::parseCompressLzma2},
+        {"compress/xz", &Document::parseCompressXz},
         {"compress/zlib", &Document::parseCompressZlib},
         {"font/truetype", &Document::parseFontTruetype},
         {"image/png", &Document::parseImagePng},
@@ -100,10 +102,10 @@ QStringList Document::findTypes(const MemChunk& chunk)
         {{0x00, 0x01, 0x00, 0x00}, "font/truetype"},
         {{0x74, 0x72, 0x75, 0x65}, "font/truetype"},
         //{{0x4D, 0x54, 0x68, 0x64}, "audio/midi"},
-        {{0x50, 0x4B, 0x03, 0x04}, "archive/zip"}//,
+        {{0x50, 0x4B, 0x03, 0x04}, "archive/zip"},
         //{{0x3C, 0x3F, 0x78, 0x6D, 0x6C}, "document/xml"},
         //{{0x25, 0x50, 0x44, 0x46, 0x2D}, "document/pdf"},
-        //{{0xFD, 0x37, 0x7A, 0x58, 0x5A, 0x00}, "compress/xz"},
+        {{0xFD, 0x37, 0x7A, 0x58, 0x5A, 0x00}, "compress/xz"}//,
         //{{0x46, 0x57, 0x53}, "animation/flash"},
         //{{0x43, 0x57, 0x53}, "animation/flash"},
         //{{0x5A, 0x57, 0x53}, "animation/flash"}
@@ -212,6 +214,20 @@ bool Document::parseCompressLzma2(const MemChunk& chunk, std::shared_ptr<data::D
     std::shared_ptr<data::Compress> parsedData;
 
     if (lzma2.parse(chunk, parsedData))
+    {
+        data = parsedData;
+        return true;
+    }
+
+    return false;
+}
+
+bool Document::parseCompressXz(const MemChunk& chunk, std::shared_ptr<data::Data>& data)
+{
+    Xz xz;
+    std::shared_ptr<data::Compress> parsedData;
+
+    if (xz.parse(chunk, parsedData))
     {
         data = parsedData;
         return true;

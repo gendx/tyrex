@@ -15,6 +15,7 @@ You will find here usefull links to the specifications and documentations of fil
 * __deflate__ : [RFC 1951](http://tools.ietf.org/html/rfc1951)
 * __gzip__ : [RFC 1952](http://tools.ietf.org/html/rfc1952)
 * __xz__ : [the Tukaani project](http://tukaani.org/xz/xz-file-format.txt)
+* __7z__ : [format description](http://cpansearch.perl.org/src/BJOERN/Compress-Deflate7-1.0/7zip/DOC/7zFormat.txt)
 
 ### Document
 
@@ -33,10 +34,10 @@ You will find here usefull links to the specifications and documentations of fil
 
 ### Sound
 
-* __wave__ : [file specifications](http://www-mmsp.ece.mcgill.ca/Documents/AudioFormats/WAVE/WAVE.html), [file format](http://www.sonicspot.com/guide/wavefiles.html)
+* __wave__ : [file specification](http://www-mmsp.ece.mcgill.ca/Documents/AudioFormats/WAVE/WAVE.html), [file format](http://www.sonicspot.com/guide/wavefiles.html)
 * __flac__ : [format](http://xiph.org/flac/format.html)
 * __vorbis__ : [Vorbis I specification](http://xiph.org/vorbis/doc/Vorbis_I_spec.html)
-* __midi__ : [file specifications](http://www.music.mcgill.ca/~ich/classes/mumt306/midiformat.pdf), [file format](http://www.sonicspot.com/guide/midifiles.html)
+* __midi__ : [file specification](http://www.music.mcgill.ca/~ich/classes/mumt306/midiformat.pdf), [file format](http://www.sonicspot.com/guide/midifiles.html)
 
 ### Video
 
@@ -47,6 +48,11 @@ You will find here usefull links to the specifications and documentations of fil
 
 * __elf__ : [FreeBSD file formats manual](http://www.freebsd.org/cgi/man.cgi?query=elf&sektion=5)
 * __java__ : [JVM specification](http://docs.oracle.com/javase/specs/jvms/se8/html/index.html)
+
+### File systems
+
+* __fat__ : [file system specification](https://staff.washington.edu/dittrich/misc/fatgen103.pdf)
+* __ext__ : [ext4 disk layout](https://ext4.wiki.kernel.org/index.php/Ext4_Disk_Layout)
 
 
 ## See also

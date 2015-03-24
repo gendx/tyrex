@@ -49,6 +49,7 @@ private:
     bool parseCompressGzip(const MemChunk& chunk, std::shared_ptr<data::Data>& data);
     bool parseCompressLzma(const MemChunk& chunk, std::shared_ptr<data::Data>& data);
     bool parseCompressLzma2(const MemChunk& chunk, std::shared_ptr<data::Data>& data);
+    bool parseCompressXz(const MemChunk& chunk, std::shared_ptr<data::Data>& data);
     bool parseCompressZlib(const MemChunk& chunk, std::shared_ptr<data::Data>& data);
     bool parseFontTruetype(const MemChunk& chunk, std::shared_ptr<data::Data>& data);
     bool parseImagePng(const MemChunk& chunk, std::shared_ptr<data::Data>& data);

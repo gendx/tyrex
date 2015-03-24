@@ -30,6 +30,7 @@ const std::vector<QString> TypeSelector::mTypes {
     "compress/gzip",
     "compress/lzma",
     "compress/lzma2",
+    "compress/xz",
     "compress/zlib",
     "font/truetype",
     "image/png",

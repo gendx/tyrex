@@ -84,6 +84,7 @@ HEADERS += \
     parse/compress/lzma/lzmalendecoder.hpp \
     parse/compress/lzma/lzmastream.hpp \
     parse/compress/lzma/lzma2.hpp \
+    parse/compress/lzma/xz.hpp \
     parse/compress/lzw.hpp \
     parse/compress/movetofront.hpp \
     parse/compress/parsecompress.hpp \
@@ -160,6 +161,7 @@ SOURCES += \
     parse/compress/lzma/lzmalendecoder.cpp \
     parse/compress/lzma/lzmastream.cpp \
     parse/compress/lzma/lzma2.cpp \
+    parse/compress/lzma/xz.cpp \
     parse/compress/lzw.cpp \
     parse/compress/movetofront.cpp \
     parse/compress/parsecompress.cpp \

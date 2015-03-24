@@ -18,6 +18,7 @@ compression | **deflate, gzip, zlib** | beta
 compression | **lzma, lzma2** | beta
 compression | **bzip2** | beta
 compression | **lzw** | beta
+compression | **xz** | lzma filter only
 archive | **zip** | encryption and some compression algorithms are missing
 archive | **tar** | basic features
 image | **png** | some interlaced and bit depth are missing
@@ -27,9 +28,14 @@ program | **elf** | basic features
 
 ### Coming soon
 
-* compression : **xz**
 * document : **pdf**
 * sound : **midi**
+
+## Other tools
+
+Tool | Methods
+---|---
+hash function | **CRC (32, 64), SHA (256)**
 
 ## Contribute
 
