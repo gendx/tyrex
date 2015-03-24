@@ -35,6 +35,9 @@ public:
     virtual void addHighlight(unsigned int start, unsigned int size, QColor color) = 0;
 
     virtual void colorize(QPainter& painter, unsigned int pos, unsigned int width, unsigned int height, unsigned int lineSpacing, unsigned int descent, unsigned int countPlaces, unsigned int countHoriz, unsigned int countVert, unsigned int leftmargin) const = 0;
+
+protected:
+    void paintAt(unsigned int x, unsigned int y, QPainter& painter, unsigned int width, unsigned int height, unsigned int lineSpacing, unsigned int descent, unsigned int countPlaces, unsigned int countHoriz, unsigned int leftmargin, QColor color) const;
 };
 
 
@@ -85,6 +88,9 @@ public:
     virtual void addSeparation(unsigned int pos, unsigned int size) = 0;
 
     virtual void colorize(QPainter& painter, unsigned int pos, unsigned int width, unsigned int height, unsigned int lineSpacing, unsigned int descent, unsigned int countPlaces, unsigned int countHoriz, unsigned int countVert, unsigned int leftmargin) const = 0;
+
+protected:
+    void lineAt(unsigned int x, unsigned int y, bool bothSides, QPainter& painter, unsigned int width, unsigned int lineSpacing, unsigned int descent, unsigned int countPlaces, unsigned int countHoriz, unsigned int leftmargin) const;
 };
 
 

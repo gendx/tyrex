@@ -25,8 +25,35 @@ AbstractHighlighter::~AbstractHighlighter()
 {
 }
 
+void AbstractHighlighter::paintAt(unsigned int x, unsigned int y, QPainter& painter, unsigned int width, unsigned int height, unsigned int lineSpacing, unsigned int descent, unsigned int countPlaces, unsigned int countHoriz, unsigned int leftmargin, QColor color) const
+{
+    painter.fillRect((3 * x + 0.5 + leftmargin) * width, y * lineSpacing + descent, 3 * width, height, color);
+    painter.fillRect((countPlaces + x - countHoriz - 1) * width, y * lineSpacing + descent, width, height, color);
+}
+
+
 AbstractSeparater::~AbstractSeparater()
 {
+}
+
+void AbstractSeparater::lineAt(unsigned int x, unsigned int y, bool bothSides, QPainter& painter, unsigned int width, unsigned int lineSpacing, unsigned int descent, unsigned int countPlaces, unsigned int countHoriz, unsigned int leftmargin) const
+{
+    painter.drawLine((0.5 + leftmargin) * width, (y + 1) * lineSpacing + descent,
+                     (3 * x + 0.5 + leftmargin) * width, (y + 1) * lineSpacing + descent);
+    painter.drawLine((3 * x + 0.5 + leftmargin) * width, (y + 1) * lineSpacing + descent,
+                     (3 * x + 0.5 + leftmargin) * width, y * lineSpacing + descent);
+    painter.drawLine((3 * x + 0.5 + leftmargin) * width, y * lineSpacing + descent,
+                     (3 * countHoriz + 0.5 + leftmargin) * width, y * lineSpacing + descent);
+
+    if (bothSides)
+    {
+        painter.drawLine((countPlaces - countHoriz - 1) * width, (y + 1) * lineSpacing + descent,
+                         (countPlaces + x - countHoriz - 1) * width, (y + 1) * lineSpacing + descent);
+        painter.drawLine((countPlaces + x - countHoriz - 1) * width, (y + 1) * lineSpacing + descent,
+                         (countPlaces + x - countHoriz - 1) * width, y * lineSpacing + descent);
+        painter.drawLine((countPlaces + x - countHoriz - 1) * width, y * lineSpacing + descent,
+                         (countPlaces - 1) * width, y * lineSpacing + descent);
+    }
 }
 
 
@@ -77,10 +104,7 @@ void Highlighter::colorize(QPainter& painter, unsigned int pos, unsigned int wid
                     color = iter.value().color;
 
             if (color != Qt::white)
-            {
-                painter.fillRect((3 * x + 0.5 + leftmargin) * width, y * lineSpacing + descent, 3 * width, height, color);
-                painter.fillRect((countPlaces + x - countHoriz - 1) * width, y * lineSpacing + descent, width, height, color);
-            }
+                this->paintAt(x, y, painter, width, height, lineSpacing, descent, countPlaces, countHoriz, leftmargin, color);
 
             ++pos;
         }
@@ -104,22 +128,7 @@ void Separater::colorize(QPainter& painter, unsigned int pos, unsigned int width
                 QPen pen(Qt::black, iter.value().size);
                 painter.setPen(pen);
 
-                painter.drawLine((0.5 + leftmargin) * width, (y + 1) * lineSpacing + descent,
-                                 (3 * x + 0.5 + leftmargin) * width, (y + 1) * lineSpacing + descent);
-                painter.drawLine((3 * x + 0.5 + leftmargin) * width, (y + 1) * lineSpacing + descent,
-                                 (3 * x + 0.5 + leftmargin) * width, y * lineSpacing + descent);
-                painter.drawLine((3 * x + 0.5 + leftmargin) * width, y * lineSpacing + descent,
-                                 (3 * countHoriz + 0.5 + leftmargin) * width, y * lineSpacing + descent);
-
-                if (iter.value().size)
-                {
-                    painter.drawLine((countPlaces - countHoriz - 1) * width, (y + 1) * lineSpacing + descent,
-                                     (countPlaces + x - countHoriz - 1) * width, (y + 1) * lineSpacing + descent);
-                    painter.drawLine((countPlaces + x - countHoriz - 1) * width, (y + 1) * lineSpacing + descent,
-                                     (countPlaces + x - countHoriz - 1) * width, y * lineSpacing + descent);
-                    painter.drawLine((countPlaces + x - countHoriz - 1) * width, y * lineSpacing + descent,
-                                     (countPlaces - 1) * width, y * lineSpacing + descent);
-                }
+                this->lineAt(x, y, iter.value().size, painter, width, lineSpacing, descent, countPlaces, countHoriz, leftmargin);
 
                 painter.restore();
             }
@@ -207,10 +216,7 @@ void ArrayHighlighter::colorize(QPainter& painter, unsigned int pos, unsigned in
             }
 
             if (val)
-            {
-                painter.fillRect((3 * x + 0.5 + leftmargin) * width, y * lineSpacing + descent, 3 * width, height, color);
-                painter.fillRect((countPlaces + x - countHoriz - 1) * width, y * lineSpacing + descent, width, height, color);
-            }
+                this->paintAt(x, y, painter, width, height, lineSpacing, descent, countPlaces, countHoriz, leftmargin, color);
 
             ++pos;
         }
@@ -233,22 +239,7 @@ void ArraySeparater::colorize(QPainter& painter, unsigned int pos, unsigned int 
                 QPen pen(Qt::black, 1);
                 painter.setPen(pen);
 
-                painter.drawLine((0.5 + leftmargin) * width, (y + 1) * lineSpacing + descent,
-                                 (3 * x + 0.5 + leftmargin) * width, (y + 1) * lineSpacing + descent);
-                painter.drawLine((3 * x + 0.5 + leftmargin) * width, (y + 1) * lineSpacing + descent,
-                                 (3 * x + 0.5 + leftmargin) * width, y * lineSpacing + descent);
-                painter.drawLine((3 * x + 0.5 + leftmargin) * width, y * lineSpacing + descent,
-                                 (3 * countHoriz + 0.5 + leftmargin) * width, y * lineSpacing + descent);
-
-                if (mBothSides)
-                {
-                    painter.drawLine((countPlaces - countHoriz - 1) * width, (y + 1) * lineSpacing + descent,
-                                     (countPlaces + x - countHoriz - 1) * width, (y + 1) * lineSpacing + descent);
-                    painter.drawLine((countPlaces + x - countHoriz - 1) * width, (y + 1) * lineSpacing + descent,
-                                     (countPlaces + x - countHoriz - 1) * width, y * lineSpacing + descent);
-                    painter.drawLine((countPlaces + x - countHoriz - 1) * width, y * lineSpacing + descent,
-                                     (countPlaces - 1) * width, y * lineSpacing + descent);
-                }
+                this->lineAt(x, y, mBothSides, painter, width, lineSpacing, descent, countPlaces, countHoriz, leftmargin);
 
                 painter.restore();
             }
