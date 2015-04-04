@@ -74,14 +74,14 @@ void Gzip::doParse(const MemChunk& chunk, std::shared_ptr<data::Compress>& data)
     // extra field
     if (flags & 0x04)
     {
-        if (size < processed + 2)
+        if (!Util::checkRange(processed, 2, size))
             Except::reportError(processed, "gzip, header, extra field", "unexpected end of data");
 
         unsigned int len = chunk.getUint16LE(processed);
         mSrcColorizer.addSeparation(processed, 1);
         processed += 2;
 
-        if (size < processed + len)
+        if (!Util::checkRange(processed, len, size))
             Except::reportError(processed, "gzip, header, extra field", "unexpected end of data");
 
         mExtraField = chunk.subChunk(processed, len);
@@ -154,7 +154,7 @@ void Gzip::doParse(const MemChunk& chunk, std::shared_ptr<data::Compress>& data)
     mSrcColorizer.addHighlight(processed, deflate.end(), QColor(128, 128, 255, 64));
 
     processed += deflate.end();
-    if (size < processed + 8)
+    if (!Util::checkRange(processed, 8, size))
         Except::reportError(size, "gzip, footer", "unexpected end of data");
 
     mSrcColorizer.addSeparation(processed, 2);

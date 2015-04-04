@@ -72,7 +72,7 @@ void Zlib::doParse(const MemChunk& chunk, std::shared_ptr<data::Compress>& data)
     mDecompColorizer = deflateData->decomp().colorizer();
 
     unsigned int processed = 2 + deflate.end();
-    if (size < processed + 4)
+    if (!Util::checkRange(processed, 4, size))
         Except::reportError(size, "zlib adler32", "unexpected end of data");
 
     mSrcColorizer.addSeparation(processed, 2);

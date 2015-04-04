@@ -74,7 +74,7 @@ void JavaClass::doParse(const MemChunk& chunk, std::shared_ptr<data::JavaClass>&
 
     for (unsigned int i = 1 ; i < poolSize ; ++i)
     {
-        if (chunkSize < processed + 1)
+        if (!Util::checkRange(processed, 1, chunkSize))
             Except::reportError(chunkSize, "javaclass, constant pool", "unexpected end of data");
         unsigned char tag = chunk[processed];
 
@@ -103,7 +103,7 @@ void JavaClass::doParse(const MemChunk& chunk, std::shared_ptr<data::JavaClass>&
             size = 9;
             break;
         case data::java::CONSTANT_Utf8:
-            if (chunkSize < processed + 3)
+            if (!Util::checkRange(processed, 3, chunkSize))
                 Except::reportError(chunkSize, "javaclass, constant pool item, utf8", "unexpected end of data");
             {
                 unsigned int length = chunk.getUint16BE(processed + 1);
@@ -193,7 +193,7 @@ void JavaClass::doParse(const MemChunk& chunk, std::shared_ptr<data::JavaClass>&
 
         constantPool.push("0x" + QString::number(numItems, 16), tagName, value);
 
-        if (chunkSize < processed + size)
+        if (!Util::checkRange(processed, size, chunkSize))
             Except::reportError(chunkSize, "javaclass, constant pool item", "unexpected end of data");
 
         ++numItems;

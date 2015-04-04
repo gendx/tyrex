@@ -111,7 +111,7 @@ void TarFile::doParse(const MemChunk& chunk, data::File& file)
         Except::reportError(mProcessed + 148, "tar file header", "invalid checksum");
 
 
-    if (size < fileSize + 0x200)
+    if (!Util::checkRange(fileSize, 0x200, size))
         Except::reportError(size, "tar file", "unexpected end of data");
 
     file.mChunk = chunk.subChunk(0x200, fileSize);

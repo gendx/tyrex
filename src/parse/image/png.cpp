@@ -53,7 +53,7 @@ void Png::doParse(const MemChunk& chunk, std::shared_ptr<data::Image>& data)
 
     while (processed < size)
     {
-        if (size < processed + 4)
+        if (!Util::checkRange(processed, 4, size))
             Except::reportError(size, "png chunk size", "unexpected end of data");
 
         mSrcColorizer.addSeparation(processed, 2);
@@ -63,7 +63,7 @@ void Png::doParse(const MemChunk& chunk, std::shared_ptr<data::Image>& data)
         unsigned int length = chunk.getUint32BE(processed);
         processed += 4;
 
-        if (size < processed + length + 8)
+        if (!Util::checkRanges(processed, {length, 8}, size))
             Except::reportError(size, "png chunk", "unexpected end of data");
 
         MemChunk crcChunk = chunk.subChunk(processed, length + 4);

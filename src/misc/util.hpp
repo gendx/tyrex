@@ -22,6 +22,7 @@
 #include <string>
 #include <cstdint>
 #include <QString>
+#include <initializer_list>
 
 namespace tyrex {
 
@@ -47,6 +48,7 @@ public:
 
     // start + len <= max && start + len >= start
     static inline bool checkRange(unsigned int start, unsigned int len, unsigned int max);
+    static bool checkRanges(unsigned int start, const std::initializer_list<unsigned int>& lens, unsigned int max);
 };
 
 inline bool Util::checkRange(unsigned int start, unsigned int len, unsigned int max)

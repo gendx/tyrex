@@ -79,7 +79,7 @@ void Deflate::parseUncompressed(DeflateStream& stream)
 {
     stream.flushByte();
     unsigned int pos = stream.pos();
-    if (mChunk.size() < pos + 4)
+    if (!Util::checkRange(pos, 4, mChunk.size()))
         Except::reportError(mChunk.size(), "deflate, uncompressed bloc, size", "unexpected end of data");
 
     unsigned int len = mChunk[pos] + (mChunk[pos + 1] << 8);
@@ -89,7 +89,7 @@ void Deflate::parseUncompressed(DeflateStream& stream)
         Except::reportError(pos, "deflate, uncompressed bloc, size", "invalid size check");
     pos += 4;
 
-    if (mChunk.size() < pos + len)
+    if (!Util::checkRange(pos, len, mChunk.size()))
         Except::reportError(mChunk.size(), "deflate, uncompressed bloc", "unexpected end of data");
 
     this->appendUncompressed(mChunk.subChunk(pos, len));

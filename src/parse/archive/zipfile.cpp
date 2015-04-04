@@ -84,7 +84,7 @@ void ZipFile::doParse(const MemChunk& chunk, data::File& file)
 
     unsigned int extraLength = fileNameLength + extraFieldLength + fileCommentLength;
 
-    if (mCentralDirSize < 46 + extraLength)
+    if (!Util::checkRanges(46, {fileNameLength, extraFieldLength, fileCommentLength}, mCentralDirSize))
         Except::reportError(mCentralDirStart + mCentralDirSize, "zip central directory", "unexpected end of central directory");
 
     mSrcColorizer.addHighlight(mCentralDirStart + 46, extraLength, QColor(128, 255, 0, 64));
@@ -95,7 +95,7 @@ void ZipFile::doParse(const MemChunk& chunk, data::File& file)
     mProcessed = 46 + extraLength;
 
     // check local header
-    if (size < localHeaderOffset + 30)
+    if (!Util::checkRange(localHeaderOffset, 30, size))
         Except::reportError(size, "zip local file header", "offset is out of range");
     if (chunk.getUint32LE(localHeaderOffset) != 0x04034B50)
         Except::reportError(localHeaderOffset, "zip local file header", "invalid signature");
@@ -148,7 +148,7 @@ void ZipFile::doParse(const MemChunk& chunk, data::File& file)
     localHeaderOffset += 30;
 
     extraLength = fileNameLength + localExtraFieldLength;
-    if (size < localHeaderOffset + extraLength)
+    if (!Util::checkRanges(localHeaderOffset, {fileNameLength, localExtraFieldLength}, size))
         Except::reportError(size, "zip local file header", "unexpected end of central directory");
 
     mSrcColorizer.addHighlight(localHeaderOffset, fileNameLength, QColor(255, 0, 0, 64));
@@ -174,7 +174,7 @@ void ZipFile::doParse(const MemChunk& chunk, data::File& file)
     fileInfo.mInfos[data::FileInfo::externalAttributes] = QString::number(externalAttributes);
 
     localHeaderOffset += extraLength;
-    if (size < localHeaderOffset + compressedSize)
+    if (!Util::checkRange(localHeaderOffset, compressedSize, size))
         Except::reportError(size, "zip file", "unexpected end of data");
     MemChunk compressedChunk = chunk.subChunk(localHeaderOffset, compressedSize);
 

@@ -268,7 +268,7 @@ void Xz::parseBlockHeader(const MemChunk& chunk, unsigned int& processed, unsign
     unsigned int startHeader = processed;
     unsigned int endHeader = processed + headerSize;
 
-    if (!Util::checkRange(processed, headerSize + 4, size))
+    if (!Util::checkRanges(processed, {headerSize, 4}, size))
         Except::reportError(size, "xz, block header", "unexpected end of data");
 
     mSrcColorizer.addHighlight(processed, headerSize + 4, QColor(128, 128, 255, 64));

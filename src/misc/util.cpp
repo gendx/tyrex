@@ -23,6 +23,17 @@
 
 namespace tyrex {
 
+bool Util::checkRanges(unsigned int start, const std::initializer_list<unsigned int>& lens, unsigned int max)
+{
+    for (unsigned int len : lens)
+    {
+        if (start + len < start)
+            return false;
+        start += len;
+    }
+    return start <= max;
+}
+
 unsigned int Util::charToHex(unsigned char c)
 {
     if (c >= '0' && c <= '9') // 0-9
