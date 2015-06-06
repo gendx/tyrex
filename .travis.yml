@@ -22,7 +22,9 @@ install:
   - if [ "QT_VERSION" == "5" ]; then sudo apt-get install qt5-qmake qt5-default; fi
 
 script:
-  - qmake -v
+  - if [ "QT_VERSION" == "4" ]; then qmake -v; fi
+  - if [ "QT_VERSION" == "5" ]; then qmake -qt=qt5 -v; fi
   - cd src
-  - qmake tyrex.pro
+  - if [ "QT_VERSION" == "4" ]; then qmake tyrex.pro; fi
+  - if [ "QT_VERSION" == "5" ]; then qmake -qt=qt5 tyrex.pro; fi
   - make
