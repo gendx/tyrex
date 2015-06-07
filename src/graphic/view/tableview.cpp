@@ -37,7 +37,7 @@ TableView::TableView(const QStringList& header, const QList<QStringList>& conten
     for (auto& item : content)
         mTreeWidget->addTopLevelItem(new QTreeWidgetItem(item));
 
-#if QT_MAJOR_VERSION >= 5
+#if QT_VERSION >= 0x050000
     mTreeWidget->header()->setSectionResizeMode(QHeaderView::ResizeToContents);
 #else
     mTreeWidget->header()->setResizeMode(QHeaderView::ResizeToContents);

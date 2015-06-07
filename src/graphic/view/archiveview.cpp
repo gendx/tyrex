@@ -40,7 +40,7 @@ ArchiveView::ArchiveView(const data::FileInfoFilter& fileInfoFilter, const Tree<
 
     for (unsigned int i = 0 ; i < mFileInfoFilter.mInfos.size() ; ++i)
         mHeaderView->setSectionHidden(i, !mFileInfoFilter.mInfos[i].second);
-#if QT_MAJOR_VERSION >= 5
+#if QT_VERSION >= 0x050000
     mHeaderView->setSectionResizeMode(QHeaderView::ResizeToContents);
 #else
     mHeaderView->setResizeMode(QHeaderView::ResizeToContents);
