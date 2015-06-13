@@ -35,5 +35,6 @@
         <file alias="error.png">../icons/icons/exclamation.png</file>
         <file alias="help.png">../icons/icons/help.png</file>
         <file alias="clear.png">../icons/icons/application_bin.png</file>
+        <file alias="text.png">../icons/icons/text.png</file>
     </qresource>
 </RCC>

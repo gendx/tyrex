@@ -165,6 +165,12 @@ void HexArea::clearSelection()
     this->update();
 }
 
+void HexArea::toggleTextInHex()
+{
+    mTextInHex = !mTextInHex;
+    this->update();
+}
+
 void HexArea::setTimer()
 {
     mCursorVisible = true;

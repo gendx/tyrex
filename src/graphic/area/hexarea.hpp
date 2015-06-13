@@ -50,6 +50,11 @@ public:
     void extendSelection(unsigned int pos, bool extend = false);
     void clearSelection();
 
+    inline bool textInHex() const;
+
+public slots:
+    void toggleTextInHex();
+
 private slots:
     void scroll(int value);
 
@@ -104,6 +109,8 @@ inline MemChunk HexArea::currentSelection() const
 
 inline void HexArea::setSearching(bool searching)
     {mSearching = searching;}
+inline bool HexArea::textInHex() const
+    {return mTextInHex;}
 
 inline int HexArea::charsPerLine() const
     {return this->charsPerLine(this->width());}

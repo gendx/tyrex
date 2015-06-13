@@ -67,9 +67,19 @@ ActionSet HexView::getActions()
     QObject::connect(infoAction, SIGNAL(triggered()), this, SLOT(infoAction()));
     edit.mActions.append(infoAction);
 
+    ActionSubset display;
+    display.mTitle = "&Display";
+
+    QAction* textAction = new QAction(QIcon(folder + "text.png"), "&Text in hex", this);
+    textAction->setCheckable(true);
+    textAction->setChecked(mHexArea->textInHex());
+    QObject::connect(textAction, SIGNAL(triggered()), mHexArea, SLOT(toggleTextInHex()));
+    display.mActions.append(textAction);
+
     ActionSet result;
     result.mSubsets.append(file);
     result.mSubsets.append(edit);
+    result.mSubsets.append(display);
     return result;
 }
 

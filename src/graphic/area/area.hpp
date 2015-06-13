@@ -59,6 +59,7 @@ protected:
 
     QFont mFont;
     QFontMetrics mMetrics;
+    bool mTextInHex;
 };
 
 }

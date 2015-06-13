@@ -51,7 +51,8 @@ void Area::setScroll(int value)
 TextArea::TextArea(ScrollView* parent) :
     Area(parent),
     mFont(PlatformSpecific::font()),
-    mMetrics(mFont)
+    mMetrics(mFont),
+    mTextInHex(false)
 {
 }
 
@@ -69,8 +70,17 @@ void TextArea::drawHex(QPainter& painter, unsigned int x, unsigned int y, unsign
 
 void TextArea::drawHexByte(QPainter& painter, unsigned int width, unsigned int x, unsigned int y, unsigned int value)
 {
-    this->drawHex(painter, x, y, value >> 4);
-    this->drawHex(painter, x + width, y, value & 0xF);
+    if (mTextInHex &&
+            ((value >= 'A' && value <= 'Z') || (value >= 'a' && value <= 'z') || (value >= '0' && value <= '9') || value == '_'))
+    {
+        this->drawASCII(painter, x, y, 0);
+        this->drawASCII(painter, x + width, y, value);
+    }
+    else
+    {
+        this->drawHex(painter, x, y, value >> 4);
+        this->drawHex(painter, x + width, y, value & 0xF);
+    }
 }
 
 void TextArea::drawASCII(QPainter& painter, unsigned int x, unsigned int y, unsigned char value)
