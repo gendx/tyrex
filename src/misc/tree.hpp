@@ -20,6 +20,7 @@
 #define TYREX_TREE_HPP
 
 #include <QString>
+#include <QList>
 #include <memory>
 
 namespace tyrex {
@@ -56,6 +57,30 @@ class Tree : public TreeNode<LeafT, Tree<LeafT> >
 public:
     inline Tree(QString title) :
         TreeNode<LeafT, Tree<LeafT> >(title) {}
+};
+
+
+template <typename NodeT>
+class TreeNodeVoid
+{
+public:
+    inline TreeNodeVoid(QString title) :
+        mTitle(title) {}
+
+    void appendTree(std::shared_ptr<NodeT> tree);
+
+    int leafCount() const;
+
+    QString mTitle;
+    QList<std::shared_ptr<NodeT> > mSubtrees;
+};
+
+template <>
+class Tree<void> : public TreeNodeVoid<Tree<void> >
+{
+public:
+    inline Tree(QString title) :
+        TreeNodeVoid<Tree<void> >(title) {}
 };
 
 }

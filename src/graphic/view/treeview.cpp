@@ -16,43 +16,16 @@
     along with this program.  If not, see http://www.gnu.org/licenses/gpl-3.0.txt
 */
 
-#ifndef TYREX_TREE_TPL
-#define TYREX_TREE_TPL
-
-#include "tree.hpp"
+#include "treeview.hpp"
 
 namespace tyrex {
+namespace graphic {
 
-template <typename LeafT, typename NodeT>
-void TreeNode<LeafT, NodeT>::appendLeaf(QString title, const LeafT& content)
+TreeView::TreeView(const Tree<void>& tree, QWidget* parent) :
+    ScrollView(new TreeArea(tree, this), parent),
+    mTreeArea(reinterpret_cast<TreeArea*>(mArea))
 {
-    mLeaves.append(TreeLeaf<LeafT>(title, content));
-}
-
-template <typename LeafT, typename NodeT>
-void TreeNode<LeafT, NodeT>::appendTree(std::shared_ptr<NodeT> tree)
-{
-    mSubtrees.append(tree);
-}
-
-
-template <typename NodeT>
-void TreeNodeVoid<NodeT>::appendTree(std::shared_ptr<NodeT> tree)
-{
-    mSubtrees.append(tree);
-}
-
-template <typename NodeT>
-int TreeNodeVoid<NodeT>::leafCount() const
-{
-    int result = 0;
-    for (auto& subtree : mSubtrees)
-        result += subtree->leafCount();
-    if (!result)
-        ++result;
-    return result;
 }
 
 }
-
-#endif // TYREX_TREE_TPL
+}

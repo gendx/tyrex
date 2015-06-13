@@ -16,43 +16,41 @@
     along with this program.  If not, see http://www.gnu.org/licenses/gpl-3.0.txt
 */
 
-#ifndef TYREX_TREE_TPL
-#define TYREX_TREE_TPL
+#ifndef TYREX_TREEAREA_HPP
+#define TYREX_TREEAREA_HPP
 
-#include "tree.hpp"
+#include "area.hpp"
+#include "misc/tree.tpl"
 
 namespace tyrex {
+namespace graphic {
 
-template <typename LeafT, typename NodeT>
-void TreeNode<LeafT, NodeT>::appendLeaf(QString title, const LeafT& content)
+class TreeArea : public TextArea
 {
-    mLeaves.append(TreeLeaf<LeafT>(title, content));
-}
+    Q_OBJECT
 
-template <typename LeafT, typename NodeT>
-void TreeNode<LeafT, NodeT>::appendTree(std::shared_ptr<NodeT> tree)
-{
-    mSubtrees.append(tree);
-}
+public:
+    inline TreeArea(const Tree<void>& tree, ScrollView* parent);
 
+private slots:
+    void scroll(int value);
 
-template <typename NodeT>
-void TreeNodeVoid<NodeT>::appendTree(std::shared_ptr<NodeT> tree)
-{
-    mSubtrees.append(tree);
-}
+private:
+    void resizeEvent(QResizeEvent* event);
+    void paintEvent(QPaintEvent* event);
 
-template <typename NodeT>
-int TreeNodeVoid<NodeT>::leafCount() const
-{
-    int result = 0;
-    for (auto& subtree : mSubtrees)
-        result += subtree->leafCount();
-    if (!result)
-        ++result;
-    return result;
-}
+    unsigned int measureWidth(const Tree<void>& tree) const;
+    int drawTree(QPainter& painter, int x, int& y, const Tree<void>& tree);
+
+    Tree<void> mTree;
+    unsigned int mLeafCount;
+    int mPos;
+};
+
+inline TreeArea::TreeArea(const Tree<void>& tree, ScrollView* parent) :
+    TextArea(parent), mTree(tree), mLeafCount(mTree.leafCount()), mPos(0) {}
 
 }
+}
 
-#endif // TYREX_TREE_TPL
+#endif // TYREX_TREEAREA_HPP

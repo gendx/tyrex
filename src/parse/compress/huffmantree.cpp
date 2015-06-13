@@ -18,6 +18,8 @@
 
 #include "huffmantree.hpp"
 
+#include "misc/tree.tpl"
+
 namespace tyrex {
 namespace parse {
 
@@ -28,7 +30,7 @@ HuffmanTree::HuffmanTree(const std::vector<unsigned int>& lengths, bool& check)
         if (len > maxLength)
             maxLength = len;
 
-    mBinaryTree = std::vector<unsigned int>((1 << (maxLength + 1)) - 1, 0xFFFFFFFF);
+    mBinaryTree = std::vector<unsigned int>((1 << (maxLength + 1)) - 1, 0xFFFFFFFE);
 
     std::vector<unsigned int> count(maxLength + 1, 0);
     for (unsigned int len : lengths)
@@ -61,6 +63,7 @@ HuffmanTree::HuffmanTree(const std::vector<unsigned int>& lengths, bool& check)
             unsigned int index = 1;
             while (len)
             {
+                mBinaryTree[index - 1] = 0xFFFFFFFF;
                 --len;
                 unsigned int bit = (value >> len) & 1;
                 index = (index << 1) + bit;
@@ -79,6 +82,47 @@ unsigned int HuffmanTree::parse(BitStream& stream) const
     while (mBinaryTree[index - 1] == 0xFFFFFFFF)
         index = (index << 1) + stream.get();
     return mBinaryTree[index - 1];
+}
+
+
+Tree<void> HuffmanTree::toTree() const
+{
+    Tree<void> result = Tree<void>(QString());
+
+    std::shared_ptr<Tree<void> > root = std::make_shared<Tree<void> >(QString());
+    this->toTree(*root, 0, QString());
+    result.appendTree(root);
+
+    return result;
+}
+
+bool HuffmanTree::toTree(Tree<void>& tree, unsigned int pos, QString sequence) const
+{
+    if (mBinaryTree[pos] == 0xFFFFFFFF)
+    {
+        bool result = false;
+
+        std::shared_ptr<Tree<void> > left = std::make_shared<Tree<void> >(QString());
+        if (this->toTree(*left, 2 * pos + 1, sequence + "0"))
+        {
+            tree.appendTree(left);
+            result = true;
+        }
+
+        std::shared_ptr<Tree<void> > right = std::make_shared<Tree<void> >(QString());
+        if (this->toTree(*right, 2 * pos + 2, sequence + "1"))
+        {
+            tree.appendTree(right);
+            result = true;
+        }
+
+        return result;
+    }
+    else if (mBinaryTree[pos] == 0xFFFFFFFE)
+        return false;
+    else
+        tree.mTitle = sequence + " : " + QString::number(mBinaryTree[pos]);
+    return true;
 }
 
 }

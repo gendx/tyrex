@@ -21,6 +21,7 @@
 
 #include <vector>
 #include "bitstream.hpp"
+#include "misc/tree.hpp"
 
 namespace tyrex {
 namespace parse {
@@ -31,8 +32,11 @@ public:
     HuffmanTree(const std::vector<unsigned int>& lengths, bool& check);
 
     unsigned int parse(BitStream& stream) const;
+    Tree<void> toTree() const;
 
 private:
+    bool toTree(Tree<void>& tree, unsigned int pos, QString sequence) const;
+
     std::vector<unsigned int> mBinaryTree;
 };
 

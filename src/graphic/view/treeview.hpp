@@ -16,43 +16,27 @@
     along with this program.  If not, see http://www.gnu.org/licenses/gpl-3.0.txt
 */
 
-#ifndef TYREX_TREE_TPL
-#define TYREX_TREE_TPL
+#ifndef TYREX_TREEVIEW_HPP
+#define TYREX_TREEVIEW_HPP
 
-#include "tree.hpp"
+#include "scrollview.hpp"
+#include "graphic/area/treearea.hpp"
 
 namespace tyrex {
+namespace graphic {
 
-template <typename LeafT, typename NodeT>
-void TreeNode<LeafT, NodeT>::appendLeaf(QString title, const LeafT& content)
+class TreeView : public ScrollView
 {
-    mLeaves.append(TreeLeaf<LeafT>(title, content));
-}
+    Q_OBJECT
 
-template <typename LeafT, typename NodeT>
-void TreeNode<LeafT, NodeT>::appendTree(std::shared_ptr<NodeT> tree)
-{
-    mSubtrees.append(tree);
-}
+public:
+    TreeView(const Tree<void>& tree, QWidget* parent = 0);
 
-
-template <typename NodeT>
-void TreeNodeVoid<NodeT>::appendTree(std::shared_ptr<NodeT> tree)
-{
-    mSubtrees.append(tree);
-}
-
-template <typename NodeT>
-int TreeNodeVoid<NodeT>::leafCount() const
-{
-    int result = 0;
-    for (auto& subtree : mSubtrees)
-        result += subtree->leafCount();
-    if (!result)
-        ++result;
-    return result;
-}
+private:
+    TreeArea* mTreeArea;
+};
 
 }
+}
 
-#endif // TYREX_TREE_TPL
+#endif // TYREX_TREEVIEW_HPP

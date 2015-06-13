@@ -16,43 +16,27 @@
     along with this program.  If not, see http://www.gnu.org/licenses/gpl-3.0.txt
 */
 
-#ifndef TYREX_TREE_TPL
-#define TYREX_TREE_TPL
+#ifndef TYREX_DATA_TREE_HPP
+#define TYREX_DATA_TREE_HPP
 
-#include "tree.hpp"
+#include "data.hpp"
 
 namespace tyrex {
+namespace data {
 
-template <typename LeafT, typename NodeT>
-void TreeNode<LeafT, NodeT>::appendLeaf(QString title, const LeafT& content)
+class DataTree : public Data
 {
-    mLeaves.append(TreeLeaf<LeafT>(title, content));
-}
+public:
+    DataTree(const QString& title, const Tree<void>& tree);
 
-template <typename LeafT, typename NodeT>
-void TreeNode<LeafT, NodeT>::appendTree(std::shared_ptr<NodeT> tree)
-{
-    mSubtrees.append(tree);
-}
+private:
+    void doAppendToTree(graphic::TreeNodeModel& tree) const;
 
-
-template <typename NodeT>
-void TreeNodeVoid<NodeT>::appendTree(std::shared_ptr<NodeT> tree)
-{
-    mSubtrees.append(tree);
-}
-
-template <typename NodeT>
-int TreeNodeVoid<NodeT>::leafCount() const
-{
-    int result = 0;
-    for (auto& subtree : mSubtrees)
-        result += subtree->leafCount();
-    if (!result)
-        ++result;
-    return result;
-}
+    QString mTitle;
+    Tree<void> mTree;
+};
 
 }
+}
 
-#endif // TYREX_TREE_TPL
+#endif // TYREX_DATA_TREE_HPP

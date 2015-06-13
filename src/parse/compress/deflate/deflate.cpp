@@ -20,6 +20,7 @@
 
 #include "deflatestream.hpp"
 #include "parse/compress/huffmantree.hpp"
+#include "data/datatree.hpp"
 
 namespace tyrex {
 namespace parse {
@@ -136,7 +137,7 @@ void Deflate::parseDynamicHuffman(DeflateStream& stream)
     bool ok = true;
     HuffmanTree lenTree(lens, ok);
     if (!ok)
-        Except::reportError(mChunk.size(), "deflate, dynamic huffman tree", "invalid lengths tree");
+        Except::reportError(mChunk.size(), "deflate, dynamic huffman tree", "invalid lengths tree", std::make_shared<data::DataTree>("Length tree", lenTree.toTree()));
 
     std::vector<unsigned int> lensLitDist(hlit + hdist, 0);
     this->getLensCompressed(lensLitDist, hlit + hdist, stream, lenTree);
@@ -146,14 +147,14 @@ void Deflate::parseDynamicHuffman(DeflateStream& stream)
         lensLit[i] = lensLitDist[i];
     HuffmanTree litTree(lensLit, ok);
     if (!ok)
-        Except::reportError(mChunk.size(), "deflate, dynamic huffman tree", "invalid literal tree");
+        Except::reportError(mChunk.size(), "deflate, dynamic huffman tree", "invalid literal tree", std::make_shared<data::DataTree>("Literal tree", litTree.toTree()));
 
     std::vector<unsigned int> lensDist(hdist, 0);
     for (unsigned int i = 0 ; i < hdist ; ++i)
         lensDist[i] = lensLitDist[hlit + i];
     HuffmanTree distTree(lensDist, ok);
     if (!ok)
-        Except::reportError(mChunk.size(), "deflate, dynamic huffman tree", "invalid distance tree");
+        Except::reportError(mChunk.size(), "deflate, dynamic huffman tree", "invalid distance tree", std::make_shared<data::DataTree>("Distance tree", distTree.toTree()));
 
     this->startHighlight();
     this->parseBlock(stream, litTree, distTree);

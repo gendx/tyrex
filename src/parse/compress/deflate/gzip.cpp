@@ -141,7 +141,7 @@ void Gzip::doParse(const MemChunk& chunk, std::shared_ptr<data::Compress>& data)
     std::shared_ptr<data::Compress> deflateData;
 
     if (!deflate.parse(chunk.subChunk(processed, size - processed), deflateData))
-        Except::reportError(size, "gzip, deflate", "error parsing deflate stream");
+        Except::reportError(size, "gzip, deflate", "error parsing deflate stream", deflateData);
 
     mDecompChunk = deflateData->decomp().chunk();
     mDecompColorizer = deflateData->decomp().colorizer();

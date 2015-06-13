@@ -26,6 +26,7 @@ HEADERS += \
     data/colorizer.hpp \
     data/compress.hpp \
     data/data.hpp \
+    data/datatree.hpp \
     data/elf.hpp \
     data/file.hpp \
     data/fileinfo.hpp \
@@ -40,6 +41,7 @@ HEADERS += \
     graphic/actionset.hpp \
     graphic/area/area.hpp \
     graphic/area/hexarea.hpp \
+    graphic/area/treearea.hpp \
     graphic/console.hpp \
     graphic/dialog/consoledialog.hpp \
     graphic/dialog/hexfinddialog.hpp \
@@ -58,6 +60,7 @@ HEADERS += \
     graphic/view/pathview.hpp \
     graphic/view/scrollview.hpp \
     graphic/view/tableview.hpp \
+    graphic/view/treeview.hpp \
     graphic/view/view.hpp \
     misc/chunk.hpp \
     misc/chunk.tpl \
@@ -110,6 +113,7 @@ SOURCES += \
     data/colorizer.cpp \
     data/compress.cpp \
     data/data.cpp \
+    data/datatree.cpp \
     data/elf.cpp \
     data/file.cpp \
     data/fileinfo.cpp \
@@ -121,6 +125,7 @@ SOURCES += \
     data/table.cpp \
     graphic/area/area.cpp \
     graphic/area/hexarea.cpp \
+    graphic/area/treearea.cpp \
     graphic/console.cpp \
     graphic/dialog/consoledialog.cpp \
     graphic/dialog/hexfinddialog.cpp \
@@ -139,6 +144,7 @@ SOURCES += \
     graphic/view/pathview.cpp \
     graphic/view/scrollview.cpp \
     graphic/view/tableview.cpp \
+    graphic/view/treeview.cpp \
     graphic/view/view.cpp \
     misc/hash/hash.cpp \
     misc/hash/sha256.cpp \
