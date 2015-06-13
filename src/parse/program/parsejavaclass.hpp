@@ -28,7 +28,7 @@ namespace parse {
 class JavaClass : public DataParser<data::JavaClass>
 {
 public:
-    JavaClass();
+    JavaClass() = default;
 
 private:
     void doParse(const MemChunk& chunk, std::shared_ptr<data::JavaClass>& data);

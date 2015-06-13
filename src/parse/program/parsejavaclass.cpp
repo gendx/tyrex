@@ -23,10 +23,6 @@ namespace parse {
 
 unsigned char JavaClass::mMagic[4] = {0xCA, 0xFE, 0xBA, 0xBE};
 
-JavaClass::JavaClass()
-{
-}
-
 
 void JavaClass::onError(const MemChunk& chunk, std::shared_ptr<data::JavaClass>& data)
 {

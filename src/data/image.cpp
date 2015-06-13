@@ -31,7 +31,7 @@ Image::Image(const MemChunk& srcChunk, const Colorizer& srcColorizer, const std:
 }
 
 
-void Image::appendToTree(graphic::TreeNodeModel& tree) const
+void Image::doAppendToTree(graphic::TreeNodeModel& tree) const
 {
     tree.appendLeaf("Source", mSource.view());
     mProperties.appendToTree(tree);

@@ -31,7 +31,7 @@ Elf::Elf(const MemChunk& srcChunk, const Colorizer& srcColorizer, const QList<QS
 }
 
 
-void Elf::appendToTree(graphic::TreeNodeModel& tree) const
+void Elf::doAppendToTree(graphic::TreeNodeModel& tree) const
 {
     tree.appendLeaf("Source", mSource.view());
     mProperties.appendToTree(tree);

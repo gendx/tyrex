@@ -34,13 +34,13 @@ Archive::Archive(const MemChunk& srcChunk, const Colorizer& srcColorizer, const 
 }
 
 
-void Archive::appendToTree(graphic::TreeNodeModel& tree) const
+void Archive::doAppendToTree(graphic::TreeNodeModel& tree) const
 {
     tree.appendLeaf("Source", mSource.view());
     mFirstView = this->view();
     tree.appendLeaf("Archive", mFirstView);
 
-    this->appendToTree(tree, mTreeFiles);
+    this->doAppendToTree(tree, mTreeFiles);
 }
 
 std::shared_ptr<graphic::View> Archive::view() const
@@ -49,20 +49,20 @@ std::shared_ptr<graphic::View> Archive::view() const
 }
 
 
-void Archive::appendToTree(graphic::TreeNodeModel& tree, const TreeLeaf<File>& file) const
+void Archive::doAppendToTree(graphic::TreeNodeModel& tree, const TreeLeaf<File>& file) const
 {
     std::shared_ptr<graphic::View> view = std::make_shared<graphic::HexView>(file.mContent.mChunk);
     tree.appendLeaf(file.mTitle, view);
 }
 
-void Archive::appendToTree(graphic::TreeNodeModel& tree, const Tree<File>& folder) const
+void Archive::doAppendToTree(graphic::TreeNodeModel& tree, const Tree<File>& folder) const
 {
     std::shared_ptr<graphic::TreeNodeModel> node = std::make_shared<graphic::TreeNodeModel>(folder.mTitle);
 
     for (auto& subtree : folder.mSubtrees)
-        this->appendToTree(*node, *subtree);
+        this->doAppendToTree(*node, *subtree);
     for (auto& leaf : folder.mLeaves)
-        this->appendToTree(*node, leaf);
+        this->doAppendToTree(*node, leaf);
 
     tree.appendTree(node);
 }

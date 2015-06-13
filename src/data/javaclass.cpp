@@ -29,7 +29,7 @@ JavaClass::JavaClass(const MemChunk& srcChunk, const Colorizer& srcColorizer, co
 }
 
 
-void JavaClass::appendToTree(graphic::TreeNodeModel& tree) const
+void JavaClass::doAppendToTree(graphic::TreeNodeModel& tree) const
 {
     tree.appendLeaf("Source", mSource.view());
     mProperties.appendToTree(tree);

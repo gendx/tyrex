@@ -35,6 +35,23 @@ std::shared_ptr<graphic::TreeNodeModel> Data::treeModel(QString title) const
     return result;
 }
 
+void Data::appendToTree(graphic::TreeNodeModel& tree) const
+{
+    this->doAppendToTree(tree);
+
+    if (!mErrors.empty())
+    {
+        std::shared_ptr<graphic::TreeNodeModel> node = std::make_shared<graphic::TreeNodeModel>("Errors");
+        for (unsigned int i = 0 ; i < mErrors.size() ; ++i)
+        {
+            std::shared_ptr<graphic::TreeNodeModel> tmp = std::make_shared<graphic::TreeNodeModel>("Error " + QString::number(i));
+            mErrors[i]->appendToTree(*tmp);
+            node->appendTree(tmp);
+        }
+        tree.appendTree(node);
+    }
+}
+
 std::shared_ptr<graphic::View> Data::firstView() const
 {
     std::shared_ptr<graphic::View> result(mFirstView);

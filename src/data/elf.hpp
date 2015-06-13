@@ -30,9 +30,9 @@ class Elf : public Data
 public:
     Elf(const MemChunk& srcChunk, const Colorizer& srcColorizer, const QList<QStringList>& segmentsHeader, const QList<QStringList>& sectionsHeader, const Table& properties);
 
-    void appendToTree(graphic::TreeNodeModel& tree) const;
-
 private:
+    void doAppendToTree(graphic::TreeNodeModel& tree) const;
+
     ByteSequence mSource;
     Table mSegmentsHeader;
     Table mSectionsHeader;

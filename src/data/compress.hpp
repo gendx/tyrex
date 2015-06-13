@@ -32,9 +32,9 @@ public:
 
     inline const ByteSequence& decomp() const;
 
-    void appendToTree(graphic::TreeNodeModel& tree) const;
-
 private:
+    void doAppendToTree(graphic::TreeNodeModel& tree) const;
+
     ByteSequence mSource;
     ByteSequence mDecomp;
 };

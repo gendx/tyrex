@@ -31,8 +31,6 @@ public:
     Table(const QString& title, const QStringList& header);
     Table(const QString& title, const QStringList& header, const QList<QStringList>& content);
 
-    void appendToTree(graphic::TreeNodeModel& tree) const;
-
     inline void setTitle(const QString& title);
     inline void setHeader(const QStringList& header);
     inline void setContent(const QList<QStringList>& content);
@@ -41,6 +39,8 @@ public:
     void push(const QString& str1, const QString& str2, const QString& str3);
 
 private:
+    void doAppendToTree(graphic::TreeNodeModel& tree) const;
+
     QString mTitle;
     QStringList mHeader;
     QList<QStringList> mContent;

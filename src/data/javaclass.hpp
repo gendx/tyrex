@@ -49,9 +49,9 @@ class JavaClass : public Data
 public:
     JavaClass(const MemChunk& srcChunk, const Colorizer& srcColorizer, const Table& constantPool, const Table& properties);
 
-    void appendToTree(graphic::TreeNodeModel& tree) const;
-
 private:
+    void doAppendToTree(graphic::TreeNodeModel& tree) const;
+
     ByteSequence mSource;
     Table mConstantPool;
     Table mProperties;

@@ -40,22 +40,22 @@ private:
 
     QStringList findTypes(const MemChunk& chunk);
 
-    typedef std::map<QString, bool (Document::*)(const MemChunk& chunk, std::shared_ptr<data::Data>& data)> TypeToParser;
+    typedef std::map<QString, void (Document::*)(const MemChunk& chunk, std::shared_ptr<data::Data>& data)> TypeToParser;
 
-    bool parseArchiveTar(const MemChunk& chunk, std::shared_ptr<data::Data>& data);
-    bool parseArchiveZip(const MemChunk& chunk, std::shared_ptr<data::Data>& data);
-    bool parseCompressBzip2(const MemChunk& chunk, std::shared_ptr<data::Data>& data);
-    bool parseCompressDeflate(const MemChunk& chunk, std::shared_ptr<data::Data>& data);
-    bool parseCompressGzip(const MemChunk& chunk, std::shared_ptr<data::Data>& data);
-    bool parseCompressLzma(const MemChunk& chunk, std::shared_ptr<data::Data>& data);
-    bool parseCompressLzma2(const MemChunk& chunk, std::shared_ptr<data::Data>& data);
-    bool parseCompressXz(const MemChunk& chunk, std::shared_ptr<data::Data>& data);
-    bool parseCompressZlib(const MemChunk& chunk, std::shared_ptr<data::Data>& data);
-    bool parseFontTruetype(const MemChunk& chunk, std::shared_ptr<data::Data>& data);
-    bool parseImagePng(const MemChunk& chunk, std::shared_ptr<data::Data>& data);
-    bool parseProgramElf32(const MemChunk& chunk, std::shared_ptr<data::Data>& data);
-    bool parseProgramElf64(const MemChunk& chunk, std::shared_ptr<data::Data>& data);
-    bool parseProgramJava(const MemChunk& chunk, std::shared_ptr<data::Data>& data);
+    void parseArchiveTar(const MemChunk& chunk, std::shared_ptr<data::Data>& data);
+    void parseArchiveZip(const MemChunk& chunk, std::shared_ptr<data::Data>& data);
+    void parseCompressBzip2(const MemChunk& chunk, std::shared_ptr<data::Data>& data);
+    void parseCompressDeflate(const MemChunk& chunk, std::shared_ptr<data::Data>& data);
+    void parseCompressGzip(const MemChunk& chunk, std::shared_ptr<data::Data>& data);
+    void parseCompressLzma(const MemChunk& chunk, std::shared_ptr<data::Data>& data);
+    void parseCompressLzma2(const MemChunk& chunk, std::shared_ptr<data::Data>& data);
+    void parseCompressXz(const MemChunk& chunk, std::shared_ptr<data::Data>& data);
+    void parseCompressZlib(const MemChunk& chunk, std::shared_ptr<data::Data>& data);
+    void parseFontTruetype(const MemChunk& chunk, std::shared_ptr<data::Data>& data);
+    void parseImagePng(const MemChunk& chunk, std::shared_ptr<data::Data>& data);
+    void parseProgramElf32(const MemChunk& chunk, std::shared_ptr<data::Data>& data);
+    void parseProgramElf64(const MemChunk& chunk, std::shared_ptr<data::Data>& data);
+    void parseProgramJava(const MemChunk& chunk, std::shared_ptr<data::Data>& data);
 
     QWidget* mParent;
 };

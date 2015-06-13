@@ -31,14 +31,14 @@ class Archive : public Data
 public:
     Archive(const MemChunk& srcChunk, const Colorizer& srcColorizer, const FileInfoFilter& fileInfoFilter, const std::vector<File>& files);
 
-    void appendToTree(graphic::TreeNodeModel& tree) const;
     std::shared_ptr<graphic::View> view() const;
 
 private:
     void makeTreeFiles();
 
-    void appendToTree(graphic::TreeNodeModel& tree, const TreeLeaf<File>& file) const;
-    void appendToTree(graphic::TreeNodeModel& tree, const Tree<File>& folder) const;
+    void doAppendToTree(graphic::TreeNodeModel& tree) const;
+    void doAppendToTree(graphic::TreeNodeModel& tree, const TreeLeaf<File>& file) const;
+    void doAppendToTree(graphic::TreeNodeModel& tree, const Tree<File>& folder) const;
 
     ByteSequence mSource;
     FileInfoFilter mFileInfoFilter;

@@ -41,7 +41,7 @@ void ByteSequence::write(std::ostream& ofs) const
 }
 
 
-void ByteSequence::appendToTree(graphic::TreeNodeModel& tree) const
+void ByteSequence::doAppendToTree(graphic::TreeNodeModel& tree) const
 {
     tree.appendLeaf("Source", this->view());
 }

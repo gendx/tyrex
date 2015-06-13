@@ -31,9 +31,9 @@ class Font : public Data
 public:
     Font(const MemChunk& srcChunk, const Colorizer& srcColorizer, const QList<std::shared_ptr<Path> >& glyphs, const Table& properties);
 
-    void appendToTree(graphic::TreeNodeModel& tree) const;
-
 private:
+    void doAppendToTree(graphic::TreeNodeModel& tree) const;
+
     ByteSequence mSource;
     QList<std::shared_ptr<Path> > mGlyphs;
     Table mProperties;

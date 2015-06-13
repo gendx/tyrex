@@ -37,13 +37,14 @@ public:
 
     void write(std::ostream& ofs) const;
 
-    void appendToTree(graphic::TreeNodeModel& tree) const;
     std::shared_ptr<graphic::View> view() const;
 
     void addHighlight(unsigned int begin, unsigned int end, QColor color);
     void addSeparation(unsigned int pos, unsigned int size);
 
 private:
+    void doAppendToTree(graphic::TreeNodeModel& tree) const;
+
     MemChunk mChunk;
     Colorizer mColorizer;
 };

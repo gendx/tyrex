@@ -30,7 +30,7 @@ Font::Font(const MemChunk& srcChunk, const Colorizer& srcColorizer, const QList<
 }
 
 
-void Font::appendToTree(graphic::TreeNodeModel& tree) const
+void Font::doAppendToTree(graphic::TreeNodeModel& tree) const
 {
     tree.appendLeaf("Source", mSource.view());
     mProperties.appendToTree(tree);

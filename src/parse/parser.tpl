@@ -21,6 +21,8 @@
 
 #include "parser.hpp"
 
+#include "graphic/console.hpp"
+#include "graphic/mainwindow.hpp"
 #include "parseexception.hpp"
 #include <iostream>
 
@@ -34,9 +36,10 @@ bool Parser<inputT, outputT>::parse(const inputT& in, outputT& out)
     {
         this->doParse(in, out);
     }
-    catch(const ParseException& e)
+    catch (const ParseException& e)
     {
         std::cerr << "ERROR:   " << e.what() << std::endl;
+        graphic::MainWindow::console()->error(e.what());
         return false;
     }
     return true;
@@ -46,17 +49,28 @@ bool Parser<inputT, outputT>::parse(const inputT& in, outputT& out)
 template <typename dataT>
 bool DataParser<dataT>::parse(const MemChunk& in, std::shared_ptr<dataT>& out)
 {
+    bool success = true;
+
+    Except::push();
     try
     {
         this->doParse(in, out);
     }
-    catch(const ParseException& e)
+    catch (const ParseException& e)
     {
         std::cerr << "ERROR:   " << e.what() << std::endl;
+        graphic::MainWindow::console()->error(e.what());
         this->onError(in, out);
-        return false;
+
+        const std::shared_ptr<data::Data>& errorData = e.data();
+        if (errorData)
+            out->addError(errorData);
+
+        success = false;
     }
-    return true;
+    Except::pop();
+
+    return success;
 }
 
 }

@@ -36,7 +36,7 @@ Compress::Compress(const MemChunk& srcChunk, const MemChunk& decompChunk, const 
 }
 
 
-void Compress::appendToTree(graphic::TreeNodeModel& tree) const
+void Compress::doAppendToTree(graphic::TreeNodeModel& tree) const
 {
     tree.appendLeaf("Source", mSource.view());
     mFirstView = mDecomp.view();

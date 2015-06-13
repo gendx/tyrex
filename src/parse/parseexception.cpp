@@ -25,11 +25,12 @@
 namespace tyrex {
 namespace parse {
 
-ParseException::ParseException(unsigned int byteOffset, const std::string& who, const std::string& what) :
+ParseException::ParseException(unsigned int byteOffset, const std::string& who, const std::string& what, const std::shared_ptr<data::Data>& data) :
     mByteOffset(byteOffset),
     mWho(who),
     mWhat(what),
-    mWhatString(Util::numToString(byteOffset) + "(" + Util::hexToString(byteOffset) + "):" + who + ":" + what)
+    mWhatString(Util::numToString(byteOffset) + "(" + Util::hexToString(byteOffset) + "):" + who + ":" + what),
+    mData(data)
 {
 }
 
@@ -43,29 +44,40 @@ const char* ParseException::what() const throw()
     return mWhatString.c_str();
 }
 
-const std::string& ParseException::whatString() const
+
+std::vector<std::shared_ptr<Except> > Except::mHandlerStack;
+std::shared_ptr<Except> Except::mHandler;
+
+
+void Except::push()
 {
-    return mWhatString;
+    mHandler = std::make_shared<Except>();
+    mHandlerStack.push_back(mHandler);
+}
+
+void Except::pop()
+{
+    if (!mHandlerStack.empty())
+    {
+        mHandlerStack.pop_back();
+        if (!mHandlerStack.empty())
+            mHandler = mHandlerStack.back();
+        else
+            mHandler.reset();
+    }
 }
 
 
-Except Except::mHandler;
-
-Except::Except()
+void Except::reportError(unsigned int byteOffset, const std::string& who, const std::string& what, const std::shared_ptr<data::Data>& data)
 {
+    mHandler->mErrors.push_back(ParseException(byteOffset, who, what, data));
+    throw mHandler->mErrors.back();
 }
 
-
-void Except::reportError(unsigned int byteOffset, const std::string& who, const std::string& what)
+void Except::reportWarning(unsigned int byteOffset, const std::string& who, const std::string& what, const std::shared_ptr<data::Data>& data)
 {
-    mHandler.mErrors.append(ParseException(byteOffset, who, what));
-    throw mHandler.mErrors.back();
-}
-
-void Except::reportWarning(unsigned int byteOffset, const std::string& who, const std::string& what)
-{
-    mHandler.mWarnings.append(ParseException(byteOffset, who, what));
-    std::cerr << "WARNING: " << mHandler.mWarnings.back().what() << std::endl;
+    mHandler->mWarnings.push_back(ParseException(byteOffset, who, what, data));
+    std::cerr << "WARNING: " << mHandler->mWarnings.back().what() << std::endl;
 }
 
 }

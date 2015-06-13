@@ -32,14 +32,24 @@ class Data
 public:
     virtual ~Data();
 
-    virtual void appendToTree(graphic::TreeNodeModel& tree) const = 0;
+    void appendToTree(graphic::TreeNodeModel& tree) const;
     std::shared_ptr<graphic::TreeNodeModel> treeModel(QString title) const;
 
     std::shared_ptr<graphic::View> firstView() const;
 
+    inline void addError(const std::shared_ptr<Data>& data);
+
 protected:
+    virtual void doAppendToTree(graphic::TreeNodeModel& tree) const = 0;
+
     mutable std::shared_ptr<graphic::View> mFirstView;
+
+private:
+    std::vector<std::shared_ptr<Data> > mErrors;
 };
+
+inline void Data::addError(const std::shared_ptr<Data>& data)
+    {mErrors.push_back(data);}
 
 }
 }
