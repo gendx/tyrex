@@ -21,7 +21,7 @@
 
 #include <QWidget>
 #include <QHBoxLayout>
-#include <QListWidget>
+#include <QTextEdit>
 
 namespace tyrex {
 namespace graphic {
@@ -31,16 +31,23 @@ class Console : public QWidget
 public:
     Console(QWidget* parent = 0);
 
-    void clear();
-    void printInfo(QString text);
+    inline void info(QString text);
+    inline void error(QString text);
 
     void append(const Console& other);
+    void clear();
 
 private:
+    void append(QString text, QColor color);
+
     QHBoxLayout* mLayout;
-    QListWidget* mList;
-    QList<QPair<QString, QString> > mItems;
+    QTextEdit* mEdit;
 };
+
+inline void Console::info(QString text)
+    {this->append(text, QColor(0, 0, 128));}
+inline void Console::error(QString text)
+    {this->append(text, QColor(255, 0, 0));}
 
 }
 }

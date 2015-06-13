@@ -26,34 +26,29 @@ namespace graphic {
 Console::Console(QWidget* parent) :
     QWidget(parent),
     mLayout(new QHBoxLayout(this)),
-    mList(new QListWidget)
+    mEdit(new QTextEdit)
 {
     mLayout->setMargin(0);
-    mLayout->addWidget(mList);
-    mList->setFont(PlatformSpecific::font());
+    mLayout->addWidget(mEdit);
+    mEdit->setFont(PlatformSpecific::font());
+    mEdit->setReadOnly(true);
 }
 
 
 void Console::clear()
 {
-    mItems.clear();
-    mList->clear();
+    mEdit->clear();
 }
 
-void Console::printInfo(QString text)
+void Console::append(QString text, QColor color)
 {
-    mItems.append(QPair<QString, QString>(":/icons/help.png", text));
-    mList->addItem(new QListWidgetItem(QIcon(":/icons/help.png"), text));
+    mEdit->setTextColor(color);
+    mEdit->append(text);
 }
-
 
 void Console::append(const Console& other)
 {
-    for (auto& item : other.mItems)
-    {
-        mItems.append(item);
-        mList->addItem(new QListWidgetItem(QIcon(item.first), item.second));
-    }
+    mEdit->append(other.mEdit->toHtml());
 }
 
 }

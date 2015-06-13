@@ -127,9 +127,9 @@ void HexView::infoAction()
     MemChunk chunk = mHexArea->memChunk();
 
     ConsoleDialog dialog("Information", this);
-    dialog.printInfo(QString("Length : ") + QString::number(chunk.size()) + " (0x" + QString::number(chunk.size(), 16) + ")");
-    dialog.printInfo(QString("Sha256 : ") + Util::chunkToHex(Hasher::getSha256(chunk).chunk()));
-    dialog.printInfo(QString("CRC32 : ") + Util::numToHex(Hasher::getCRC32(chunk), 8));
+    dialog.append(QString("Length : ") + QString::number(chunk.size()) + " (0x" + QString::number(chunk.size(), 16) + ")");
+    dialog.append(QString("Sha256 : ") + Util::chunkToHex(Hasher::getSha256(chunk).chunk()));
+    dialog.append(QString("CRC32 : ") + Util::numToHex(Hasher::getCRC32(chunk), 8));
 
     dialog.exec();
 }

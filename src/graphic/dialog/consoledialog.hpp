@@ -34,7 +34,7 @@ public:
     ConsoleDialog(QString title, QWidget* parent = 0);
 
     inline void clear();
-    inline void printInfo(QString text);
+    inline void append(QString text);
 
 private slots:
     void copy();
@@ -48,8 +48,8 @@ private:
 
 inline void ConsoleDialog::clear()
     {mConsole->clear();}
-inline void ConsoleDialog::printInfo(QString text)
-    {mConsole->printInfo(text);}
+inline void ConsoleDialog::append(QString text)
+    {mConsole->info(text);}
 
 }
 }
