@@ -23,7 +23,7 @@
 namespace tyrex {
 namespace parse {
 
-unsigned char Bzip2::mMagic[3] = {0x42, 0x5a, 0x68};
+unsigned char Bzip2::mMagic[3] = {0x42, 0x5A, 0x68};
 unsigned char Bzip2::mMagicPi[6] = {0x31, 0x41, 0x59, 0x26, 0x53, 0x59};
 unsigned char Bzip2::mMagicSqrtPi[6] = {0x17, 0x72, 0x45, 0x38, 0x50, 0x90};
 
@@ -122,7 +122,7 @@ bool Bzip2::parseBlock(ForwardStream& stream, unsigned int blockSize100k)
     unsigned int EOB = symbolMap.size() + 1;
     unsigned int group = -1;
     unsigned int groupPos = 0;
-    HuffmanTree* tree = NULL;
+    HuffmanTree* tree = nullptr;
     unsigned int repeats = 0;
     unsigned int nRepeats = 0;
 

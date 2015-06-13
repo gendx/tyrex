@@ -28,7 +28,7 @@ namespace parse {
 class Tar : public DataParser<data::Archive>
 {
 public:
-    Tar();
+    Tar() = default;
 
 private:
     void doParse(const MemChunk& chunk, std::shared_ptr<data::Archive>& data);

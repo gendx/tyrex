@@ -27,7 +27,7 @@ namespace parse {
 class Zlib : public Compress
 {
 public:
-    Zlib();
+    Zlib() = default;
 
 private:
     void doParse(const MemChunk& chunk, std::shared_ptr<data::Compress>& data);

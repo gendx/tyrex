@@ -24,11 +24,6 @@
 namespace tyrex {
 namespace parse {
 
-Zlib::Zlib()
-{
-}
-
-
 void Zlib::onError(const MemChunk& chunk, std::shared_ptr<data::Compress>& data)
 {
     data = std::make_shared<data::Compress>(chunk, mDecompChunk, mSrcColorizer, mDecompColorizer);

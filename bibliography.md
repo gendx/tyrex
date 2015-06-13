@@ -31,6 +31,7 @@ You will find here usefull links to the specifications and documentations of fil
 * __png__ : [W3C specification](http://www.w3.org/TR/PNG/)
 * __svg__ : [W3C specification](http://www.w3.org/TR/SVG/)
 * __jpeg__ : [W3C specification](http://www.w3.org/Graphics/JPEG/)
+* __gif__ : [GIF 89a (on W3C)](http://www.w3.org/Graphics/GIF/spec-gif89a.txt)
 
 ### Sound
 

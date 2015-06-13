@@ -28,7 +28,7 @@ namespace parse {
 class Zip : public DataParser<data::Archive>
 {
 public:
-    Zip();
+    Zip() = default;
 
 private:
     void doParse(const MemChunk& chunk, std::shared_ptr<data::Archive>& data);

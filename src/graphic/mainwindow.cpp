@@ -30,8 +30,8 @@
 namespace tyrex {
 namespace graphic {
 
-MainWindow* MainWindow::mMainWindow = NULL;
-HexFindDialog* MainWindow::mHexFindDialog = NULL;
+MainWindow* MainWindow::mMainWindow = nullptr;
+HexFindDialog* MainWindow::mHexFindDialog = nullptr;
 
 MainWindow::MainWindow() :
     mSplitter(new QSplitter(Qt::Vertical)),
@@ -214,7 +214,7 @@ Document* MainWindow::createDocument(const MemChunk& chunk)
     }
 
     delete document;
-    return NULL;
+    return nullptr;
 }
 
 bool MainWindow::openFromMemChunk(const MemChunk& chunk)

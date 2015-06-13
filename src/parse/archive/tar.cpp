@@ -23,11 +23,6 @@
 namespace tyrex {
 namespace parse {
 
-Tar::Tar()
-{
-}
-
-
 void Tar::onError(const MemChunk& chunk, std::shared_ptr<data::Archive>& data)
 {
     data = std::make_shared<data::Archive>(chunk, mSrcColorizer, data::FileInfoFilter::mTarFilter, mExtractedFiles);

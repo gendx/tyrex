@@ -97,15 +97,15 @@ void Truetype::doParse(const MemChunk& chunk, std::shared_ptr<data::Font>& data)
     }
 
     // tables
-    std::map<unsigned int, std::pair<unsigned int, unsigned int> >::const_iterator cmap = typeToTable.find(0x636D6170);
-    std::map<unsigned int, std::pair<unsigned int, unsigned int> >::const_iterator glyf = typeToTable.find(0x676C7966);
-    std::map<unsigned int, std::pair<unsigned int, unsigned int> >::const_iterator head = typeToTable.find(0x68656164);
-    std::map<unsigned int, std::pair<unsigned int, unsigned int> >::const_iterator hhea = typeToTable.find(0x68686561);
-    std::map<unsigned int, std::pair<unsigned int, unsigned int> >::const_iterator hmtx = typeToTable.find(0x686D7478);
-    std::map<unsigned int, std::pair<unsigned int, unsigned int> >::const_iterator loca = typeToTable.find(0x6C6F6361);
-    std::map<unsigned int, std::pair<unsigned int, unsigned int> >::const_iterator maxp = typeToTable.find(0x6D617870);
-    std::map<unsigned int, std::pair<unsigned int, unsigned int> >::const_iterator name = typeToTable.find(0x6E616D65);
-    std::map<unsigned int, std::pair<unsigned int, unsigned int> >::const_iterator post = typeToTable.find(0x706F7374);
+    auto cmap = typeToTable.find(0x636D6170);
+    auto glyf = typeToTable.find(0x676C7966);
+    auto head = typeToTable.find(0x68656164);
+    auto hhea = typeToTable.find(0x68686561);
+    auto hmtx = typeToTable.find(0x686D7478);
+    auto loca = typeToTable.find(0x6C6F6361);
+    auto maxp = typeToTable.find(0x6D617870);
+    auto name = typeToTable.find(0x6E616D65);
+    auto post = typeToTable.find(0x706F7374);
 
     // head
     if (head == typeToTable.end())

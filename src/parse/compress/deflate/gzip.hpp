@@ -27,7 +27,7 @@ namespace parse {
 class Gzip : public Compress
 {
 public:
-    Gzip();
+    Gzip() = default;
 
 private:
     void doParse(const MemChunk& chunk, std::shared_ptr<data::Compress>& data);

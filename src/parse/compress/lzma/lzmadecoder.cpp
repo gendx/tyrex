@@ -23,7 +23,7 @@ namespace parse {
 
 LzmaDecoder::LzmaDecoder(unsigned int lc, unsigned int lp, unsigned int pb) :
     mPos(0),
-    mLzParser(NULL),
+    mLzParser(nullptr),
     mVirtualDictStart(0),
     mUnpackSizeDefined(false),
     mUnpackSize(0),

@@ -30,7 +30,7 @@ namespace graphic {
 
 HexFindDialog::HexFindDialog(QWidget* parent) :
     QDialog(parent),
-    mArea(0),
+    mArea(nullptr),
     mLayout(new QVBoxLayout(this)),
     mLineAscii(new QLineEdit),
     mLineHex(new QLineEdit),
@@ -117,7 +117,7 @@ void HexFindDialog::detach()
         mArea->setSearching(false);
     }
 
-    mArea = NULL;
+    mArea = nullptr;
     this->hide();
 }
 

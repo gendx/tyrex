@@ -23,11 +23,6 @@
 namespace tyrex {
 namespace parse {
 
-Zip::Zip()
-{
-}
-
-
 void Zip::onError(const MemChunk& chunk, std::shared_ptr<data::Archive>& data)
 {
     data = std::make_shared<data::Archive>(chunk, mSrcColorizer, data::FileInfoFilter::mZipFilter, mExtractedFiles);

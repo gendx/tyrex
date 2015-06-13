@@ -27,10 +27,6 @@ namespace parse {
 
 unsigned char Gzip::mMagic[2] = {0x1F, 0x8B};
 
-Gzip::Gzip()
-{
-}
-
 
 void Gzip::onError(const MemChunk& chunk, std::shared_ptr<data::Compress>& data)
 {
