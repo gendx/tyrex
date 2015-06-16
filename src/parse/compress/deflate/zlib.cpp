@@ -61,7 +61,7 @@ void Zlib::doParse(const MemChunk& chunk, std::shared_ptr<data::Compress>& data)
     std::shared_ptr<data::Compress> deflateData;
 
     if (!deflate.parse(chunk.subChunk(2, chunk.size() - 2), deflateData))
-        Except::reportError(size, "zlib, deflate", "error parsing deflate stream");
+        Except::reportError(size, "zlib, deflate", "error parsing deflate stream", deflateData);
 
     mDecompChunk = deflateData->decomp().chunk();
     mDecompColorizer = deflateData->decomp().colorizer();

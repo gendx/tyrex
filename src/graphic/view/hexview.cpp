@@ -59,7 +59,7 @@ ActionSet HexView::getActions()
     QObject::connect(exportAction, SIGNAL(triggered()), this, SLOT(exportAction()));
     edit.mActions.append(exportAction);
 
-    QAction* extractAction = new QAction(QIcon(folder + "copy.png"), "Export &selection", this);
+    QAction* extractAction = new QAction(QIcon(folder + "export_selection.png"), "Export &selection", this);
     QObject::connect(extractAction, SIGNAL(triggered()), this, SLOT(extractAction()));
     edit.mActions.append(extractAction);
 

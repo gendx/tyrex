@@ -129,7 +129,7 @@ void Png::doParse(const MemChunk& chunk, std::shared_ptr<data::Image>& data)
     std::shared_ptr<data::Compress> zlibData;
 
     if (!zlib.parse(idat, zlibData))
-        Except::reportError(0, "png idat", "error decompressing idat");
+        Except::reportError(0, "png idat", "error decompressing idat", zlibData);
     MemChunk decompChunk = zlibData->decomp().chunk();
 
     this->parseIDAT(decompChunk);

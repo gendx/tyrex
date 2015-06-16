@@ -251,7 +251,7 @@ unsigned int Xz::decodeLzma2(const MemChunk& src, MemChunk& dst, unsigned int& p
     std::shared_ptr<data::Compress> lzmaData;
 
     if (!lzma2.parse(src.subChunk(processed), lzmaData))
-        Except::reportError(filter.mPos, "xz, filter, lzma2", "decoding error");
+        Except::reportError(filter.mPos, "xz, filter, lzma2", "decoding error", lzmaData);
 
     unsigned int compressedSize = lzma2.end();
     processed += compressedSize;

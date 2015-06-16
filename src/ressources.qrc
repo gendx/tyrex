@@ -28,7 +28,7 @@
         <file alias="save.png">../icons/icons/disk.png</file>
         <file alias="save_all.png">../icons/icons/disk_multiple.png</file>
         <file alias="save_as.png">../icons/icons/disk_edit.png</file>
-        <file alias="copy.png">../icons/icons/page_white_copy.png</file>
+        <file alias="export_selection.png">../icons/icons/pilcrow_go.png</file>
         <file alias="split.png">../icons/icons/application_split.png</file>
         <file alias="unsplit.png">../icons/icons/application_split_cross.png</file>
         <file alias="warning.png">../icons/icons/error.png</file>
