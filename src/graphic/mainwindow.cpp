@@ -47,6 +47,7 @@ MainWindow::MainWindow() :
     this->setCentralWidget(mSplitter);
     mSplitter->addWidget(mMdi);
     mSplitter->addWidget(mConsole);
+    mSplitter->setSizes(QList<int>() << 1 << 0);
 
     mMdi->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     mMdi->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
@@ -99,7 +100,13 @@ MainWindow::MainWindow() :
 
 Console* MainWindow::console()
 {
-    mMainWindow->mConsole->show();
+    QList<int> sizes = mMainWindow->mSplitter->sizes();
+    if (sizes[1] == 0)
+    {
+        sizes[1] = sizes[0] / 4;
+        sizes[0] -= sizes[1];
+        mMainWindow->mSplitter->setSizes(sizes);
+    }
     return mMainWindow->mConsole;
 }
 
@@ -193,6 +200,7 @@ void MainWindow::unsplit()
 void MainWindow::clearConsole()
 {
     mMainWindow->mConsole->clear();
+    mSplitter->setSizes(QList<int>() << 1 << 0);
 }
 
 
